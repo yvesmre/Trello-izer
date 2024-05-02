@@ -1,12 +1,18 @@
-# This code sample uses the 'requests' library:
-# http://docs.python-requests.org
 import requests
 import json
+import os
+from dotenv import load_dotenv
+import csv
+import pandas as pd
+
+load_dotenv()
 
 
+auth_token = os.getenv("AUTH_TOKEN")
+api_key = os.getenv("API_KEY")
 
 
-url = "https://api.trello.com/1/boards/IdICNLK4/cards"
+lists_request_url = "https://api.trello.com/1/boards/IdICNLK4/lists"
 
 headers = {
   "Accept": "application/json"
@@ -19,9 +25,59 @@ query = {
 
 response = requests.request(
    "GET",
-   url,
+   lists_request_url,
    headers=headers,
    params=query
 )
 
-print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+JSON_response = json.loads(response.text)
+
+
+
+list_and_cards_dict = {}
+
+for obj in JSON_response:
+    list_and_cards_dict[obj["id"]] = []
+
+for key in list_and_cards_dict.keys(): 
+  card_request_url = "https://api.trello.com/1/lists/" + key + "/cards"
+  response = requests.request(
+    "GET",
+    card_request_url,
+    headers=headers,
+    params=query
+  )
+
+  JSON = json.loads(response.text)
+
+  for obj in JSON:
+     list_and_cards_dict[key].append(obj["id"])
+
+  list_and_cards_dict[key].reverse()
+
+
+def isEmpty(lists_):
+  for list in lists_:
+    if len(list) > 0:
+        return False
+      
+  return True
+
+
+listCopy = dict(list_and_cards_dict)
+
+
+
+with open('test.csv', 'w', newline='') as csvfile:
+    fieldnames = list_and_cards_dict.keys()
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    writer.writeheader()
+
+    while not isEmpty(list_and_cards_dict.values()):
+      to_write = {}
+      for key, values in listCopy.items():
+         to_write[key] = values.pop() if len(values) > 0 else ''
+      writer.writerow(to_write)
+
