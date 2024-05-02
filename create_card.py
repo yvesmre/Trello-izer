@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 auth_token = os.getenv("AUTH_TOKEN")
 api_key = os.getenv("API_KEY")
 
@@ -13,17 +12,17 @@ headers = {
   "Accept": "application/json"
 }
 
-query = {
+initial_query = {
   'key': api_key,
   'token': auth_token,
 }
 
 
 def create_card(list, name, desc):
-  queryCopy = dict(query)
-  queryCopy["name"] = name
-  queryCopy["idList"] = list
-  queryCopy["desc"] = desc
+  query = dict(initial_query)
+  query["name"] = name
+  query["idList"] = list
+  query["desc"] = desc
 
   url = "https://api.trello.com/1/cards"
 
@@ -31,7 +30,7 @@ def create_card(list, name, desc):
     "POST",
     url,
     headers=headers,
-    params=queryCopy
+    params=query
   )
   JSON_Response = json.loads(response.text)
   
@@ -40,14 +39,14 @@ def create_card(list, name, desc):
 def create_list(id, name, templateId):
   url = "https://api.trello.com/1/cards/" + id + "/checklists"
 
-  queryCopy = dict(query)
-  queryCopy["name"] = name
-  queryCopy["idChecklistSource"] = templateId
+  query = dict(initial_query)
+  query["name"] = name
+  query["idChecklistSource"] = templateId
 
   response = requests.request(
    "POST",
    url,
-   params=queryCopy
+   params=query
   )
 
   return json.loads(response.text)
