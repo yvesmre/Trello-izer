@@ -52,5 +52,5 @@ def create_list(id, name, templateId):
 
 ##Testing
 if __name__ == "__main__":
-    create_list(create_card(TEST_LIST, 'Testing', "Test!")["id"], "Test Checklist", BUILD_CHECKLIST)
+    create_list(create_card(TEST_LIST, 'Testing', "Test!")["id"], "Test Checklist", BUILD_CHECKLIST_TEMPLATE)
     
