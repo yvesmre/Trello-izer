@@ -16,5 +16,4 @@ def parse_spreadsheet_for_pickslips_and_due_dates(file):
 
     return data
 
-
 print(parse_spreadsheet_for_pickslips_and_due_dates("Test Excel Sheet.xlsx"))
