@@ -1,7 +1,10 @@
 import requests
 import json
 import os
-from variables import AUTH_TOKEN, API_KEY
+from variables import *
+
+
+url = "https://api.trello.com/1/cards"
 
 headers = {
   "Accept": "application/json"
@@ -19,7 +22,6 @@ def create_card(list, name, desc):
   query["idList"] = list
   query["desc"] = desc
 
-  url = "https://api.trello.com/1/cards"
 
   response = requests.request(
     "POST",
@@ -32,7 +34,7 @@ def create_card(list, name, desc):
   return JSON_Response
 
 def create_list(id, name, templateId):
-  url = "https://api.trello.com/1/cards/" + id + "/checklists"
+  checklist_url = url + "/" + id + "/checklists"
 
   query = dict(initial_query)
   query["name"] = name
@@ -40,7 +42,7 @@ def create_list(id, name, templateId):
 
   response = requests.request(
    "POST",
-   url,
+   checklist_url,
    params=query
   )
 
@@ -50,7 +52,5 @@ def create_list(id, name, templateId):
 
 ##Testing
 if __name__ == "__main__":
-    BUILD_CHECKLIST = os.getenv("BUILD_CHECKLIST")
-    TEST_LIST = os.getenv("TEST_LIST")
     create_list(create_card(TEST_LIST, 'Testing', "Test!")["id"], "Test Checklist", BUILD_CHECKLIST)
     
