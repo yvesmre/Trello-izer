@@ -1,20 +1,15 @@
 import requests
 import json
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-auth_token = os.getenv("AUTH_TOKEN")
-api_key = os.getenv("API_KEY")
+from variables import AUTH_TOKEN, API_KEY
 
 headers = {
   "Accept": "application/json"
 }
 
 initial_query = {
-  'key': api_key,
-  'token': auth_token,
+  'key': API_KEY,
+  'token': AUTH_TOKEN,
 }
 
 
@@ -50,9 +45,6 @@ def create_list(id, name, templateId):
   )
 
   return json.loads(response.text)
-
-  print(response.text)
-
 
 
 

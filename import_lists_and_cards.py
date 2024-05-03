@@ -1,15 +1,8 @@
 import requests
 import json
-import os
-from dotenv import load_dotenv
 import csv
 import pandas as pd
-
-load_dotenv()
-
-
-auth_token = os.getenv("AUTH_TOKEN")
-api_key = os.getenv("API_KEY")
+from variables import AUTH_TOKEN, API_KEY, PRODUCTION_BOARD
 
 
 lists_request_url = "https://api.trello.com/1/boards/IdICNLK4/lists"
@@ -19,8 +12,8 @@ headers = {
 }
 
 query = {
-  'key': api_key,
-  'token': auth_token
+  'key': API_KEY,
+  'token': AUTH_TOKEN
 }
 
 response = requests.request(
