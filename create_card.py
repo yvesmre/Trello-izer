@@ -16,7 +16,7 @@ initial_query = {
 }
 
 
-def create_card(list, name, desc):
+def create_card(list, name, desc, template):
   query = dict(initial_query)
   query["name"] = name
   query["idList"] = list
@@ -52,5 +52,5 @@ def create_list(id, name, templateId):
 
 ##Testing
 if __name__ == "__main__":
-    create_list(create_card(TEST_LIST, 'Testing', "Test!")["id"], "Test Checklist", BUILD_CHECKLIST_TEMPLATE)
+    create_list(create_card(TEST_LIST, 'Testing', "Test!", "")["id"], "Test Checklist", BUILD_CHECKLIST_TEMPLATE)
     

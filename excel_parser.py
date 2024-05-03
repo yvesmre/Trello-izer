@@ -1,7 +1,7 @@
 import openpyxl
 
 def parse_spreadsheet_for_pickslips_and_due_dates(file):
-    data = []
+    data = {}
 
     dataframe = openpyxl.load_workbook(file)
     spreadsheet = dataframe.active
@@ -11,7 +11,7 @@ def parse_spreadsheet_for_pickslips_and_due_dates(file):
         if col[0].value == "Pickslip" or col[0].value == "Creation date":
             for row in range(1, spreadsheet.max_row):
                     column.append(col[row].value)
-            data.append(column)
+            data[col[0].value] = column
 
 
     return data
