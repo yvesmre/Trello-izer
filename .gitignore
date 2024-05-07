@@ -4,3 +4,4 @@
 *.json
 __pycache__
 *.xlsx
+import_myob_data.py
