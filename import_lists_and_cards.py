@@ -2,7 +2,7 @@ import requests
 import json
 import csv
 import pandas as pd
-from variables import AUTH_TOKEN, API_KEY, PRODUCTION_BOARD
+from variables import AUTH_TOKEN, API_KEY, FIT_OUT_BOARD
 
 
 lists_request_url = "https://api.trello.com/1/boards/IdICNLK4/lists"

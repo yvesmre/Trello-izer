@@ -1,8 +1,8 @@
 import requests
 import json
-from variables import AUTH_TOKEN, API_KEY, PRODUCTION_BOARD
+from variables import AUTH_TOKEN, API_KEY, FIT_OUT_BOARD
 
-url = "https://api.trello.com/1/boards/" + PRODUCTION_BOARD + "/cards"
+url = "https://api.trello.com/1/boards/" + FIT_OUT_BOARD + "/cards"
 
 headers = {
   "Accept": "application/json"
