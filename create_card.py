@@ -21,6 +21,7 @@ def create_card(list, name, desc, template):
   query["name"] = name
   query["idList"] = list
   query["desc"] = desc
+  query["idCardSource"] = template
 
 
   response = requests.request(
