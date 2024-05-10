@@ -7,3 +7,4 @@ __pycache__
 import_myob_data.py
 output/*
 output
+dist/
