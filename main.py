@@ -6,7 +6,7 @@ from datetime import date
 def main():
 
     updates = {}
-    orders = parse_spreadsheets_for_orders("/Users/yvesreyes/Library/CloudStorage/OneDrive-K-DrivePtyLtd/K-Drive Schedule.xlsx")
+    orders = parse_spreadsheets_for_orders("K-Drive Schedule.xlsx")
 
     if(len(orders) == 0):
         print("No cards to be created!")
@@ -17,7 +17,7 @@ def main():
         updates[str(order.job_number)] = date.today()
 
 
-    update_row("/Users/yvesreyes/Library/CloudStorage/OneDrive-K-DrivePtyLtd/K-Drive Schedule.xlsx", updates)
+    update_row("K-Drive Schedule.xlsx", updates)
 
 if __name__ == "__main__":
     main()
