@@ -43,6 +43,7 @@ for key in list_and_cards_dict.keys():
   )
 
   JSON = json.loads(response.text)
+  print("ACCESS_TOKEN")
 
   for obj in JSON:
      list_and_cards_dict[key].append(obj["id"])

@@ -11,8 +11,11 @@ class Order():
         self.customer = customer
         self.client = client
     
+    def set_lines(self, lines):
+        self.lines = lines
+
     def __str__(self):
-        return f"{self.job_number} {self.customer} {self.client}"
+        return f"{self.job_number} {self.customer} {self.client} {self.lines}"
 
 def parse_spreadsheets_for_orders(file):
     data = []

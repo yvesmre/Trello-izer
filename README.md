@@ -11,3 +11,4 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - - - [ ] Parse MYOB
 - - - [ ] Cross check data across the two sources
 - - [ ] Write files to a remote OneDrive location
+- - [x] Easily useable executable file
