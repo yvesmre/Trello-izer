@@ -10,9 +10,12 @@ class Order():
         self.job_number = job_number
         self.customer = customer
         self.client = client
+        self.lines = []
     
     def set_lines(self, lines):
-        self.lines = lines
+        self.lines = []
+        for line in lines:
+            self.lines.append(line["Description"])
 
     def __str__(self):
         return f"{self.job_number} {self.customer} {self.client} {self.lines}"

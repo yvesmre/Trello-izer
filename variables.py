@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import configparser
 
 load_dotenv()
 
@@ -25,3 +26,13 @@ EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 MYOB_ACCESS_CODE = os.getenv("MYOB_ACCESS_CODE")
 MYOB_API_KEY = os.getenv("MYOB_API_KEY")
 MYOB_API_SECRET = os.getenv("MYOB_API_SECRET")
+
+
+config = configparser.ConfigParser()
+if not os.path.isfile('config.ini'):
+
+    config["SECRETS"] = {'MyobAPIKey': '', 'MyobAPISecret': ''}
+
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
+

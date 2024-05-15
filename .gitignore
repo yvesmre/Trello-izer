@@ -8,3 +8,5 @@ import_myob_data.py
 output/*
 output
 dist/
+*.code-workspace
+*.ini
