@@ -3,13 +3,15 @@ from variables import *
 from create_card import *
 from datetime import date
 from import_myob_data import *
+import shutil
+
 def main():
 
     # import_myob()
 
     # print("Hello")
     updates = {}
-    orders = parse_spreadsheets_for_orders("K-Drive Schedule.xlsx")
+    orders = parse_spreadsheets_for_orders(EXCEL_SPREADSHEET_READ)
 
     if(len(orders) == 0):
         print("No cards to be created!")
@@ -28,8 +30,10 @@ def main():
                 create_list(card, line, BUILD_CHECKLIST_TEMPLATE)
             updates[str(order.job_number)] = date.today()
 
+    if DIFFERENT_DESTINATION_EXCEL:
+        shutil.copyfile(EXCEL_SPREADSHEET_READ, EXCEL_SPREADSHEET_WRITE)
 
-    # update_row("K-Drive Schedule.xlsx", updates)
+    update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates)
 
 if __name__ == "__main__":
     main()

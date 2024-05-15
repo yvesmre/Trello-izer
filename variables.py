@@ -23,16 +23,34 @@ EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
-MYOB_ACCESS_CODE = os.getenv("MYOB_ACCESS_CODE")
+# MYOB_ACCESS_CODE = os.getenv("MYOB_ACCESS_CODE")
 MYOB_API_KEY = os.getenv("MYOB_API_KEY")
 MYOB_API_SECRET = os.getenv("MYOB_API_SECRET")
 
 
 config = configparser.ConfigParser()
+
 if not os.path.isfile('config.ini'):
 
-    config["SECRETS"] = {'MyobAPIKey': '', 'MyobAPISecret': ''}
+    config["SETTINGS"] = {"write to excel":  False, "different excel destination": True}
+    config["SECRETS"] = {
+                        'myob api key': '', 
+                        'myob api secret': '',
+                        "trello auth token": '',
+                        'trello api key':''
+                        }
+    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": ""}
+    config["FILE LOCATIONS"] = {"excel schedule read": '', "excel schedule write": ''}
 
-    with open('config.ini', 'w') as configfile:
+    configfile = open('config.ini', 'w')
+    with configfile:
         config.write(configfile)
+    configfile.close()
 
+
+config.read('config.ini')
+    
+WRITE_TO_EXCEL = config["SETTINGS"].getboolean("write to excel")
+DIFFERENT_DESTINATION_EXCEL = config["SETTINGS"].getboolean("different excel destination")
+EXCEL_SPREADSHEET_READ = config["FILE LOCATIONS"]["excel schedule read"]
+EXCEL_SPREADSHEET_WRITE = config["FILE LOCATIONS"]["excel schedule write"]
