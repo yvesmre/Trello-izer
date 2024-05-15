@@ -7,7 +7,7 @@ import shutil
 
 def main():
 
-    # import_myob()
+    import_myob()
 
     # print("Hello")
     updates = {}
