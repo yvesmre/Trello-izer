@@ -5,9 +5,13 @@ from datetime import date
 from import_myob_data import *
 import shutil
 
+
+# Main python class and function where everything happens
 def main():
 
     import_myob()
+
+    LIST_DESINATION = TEST_LIST # if USE_TEST_LIST else FIT_OUT_BOARD
 
     # print("Hello")
     updates = {}
@@ -24,7 +28,7 @@ def main():
             order.set_lines(lines)
         else: print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
         
-        if(len(order.lines) > 0): # Only do job cards for ones with MYOB entries
+        if(len(order.lines) > 0): # Only do job cards for ones with MYOB entries ### Could be a setting later
             card = create_card(TEST_LIST, str(order.job_number) + "-" + order.client, "", FIT_OUT_BUILD_TEMPLATE)["id"]
             for line in order.lines:
                 create_list(card, line, BUILD_CHECKLIST_TEMPLATE)

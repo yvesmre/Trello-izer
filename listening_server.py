@@ -26,13 +26,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # Send a simple response
-        message = """""<script> window.close() </script>"""
+        message = """If you see this window, it was supposed to close automatically! <script> window.close() </script>"""
         self.wfile.write(message.encode('utf-8'))
         sys.exit()
 
 # Set up and start the server
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
-    server_address = ('', 8000)  # Listen on all interfaces at port 8000
+    server_address = ('', 8000) 
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 
