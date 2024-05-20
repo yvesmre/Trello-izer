@@ -1,6 +1,6 @@
 from excel_parser import *
 from variables import *
-from create_card import *
+from trello_exports import *
 from datetime import date
 from import_myob_data import *
 import shutil
