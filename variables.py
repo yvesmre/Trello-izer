@@ -30,7 +30,7 @@ if not os.path.isfile('config.ini'):
                         "trello auth token": '',
                         'trello api key':''
                         }
-    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": ""}
+    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", 'drafting card template':""}
     config["FILE LOCATIONS"] = {"excel schedule read": '', "excel schedule write": ''}
     config['DUPLICATE DETECTOR SETTINGS'] = {"sender address" : '', 'sender credentials': '', 'receiver address': ''}
 
@@ -53,3 +53,5 @@ MYOB_API_SECRET = config["SECRETS"]["myob api secret"]
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
+
+DRAFTING_CARD_TEMPLATE =  config['BOARD and LIST IDS']['drafting card template']
