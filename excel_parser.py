@@ -25,14 +25,15 @@ def parse_spreadsheets_for_orders(file):
 
     spreadsheet  = pd.read_excel(file, keep_default_na=False)
 
-    spreadsheet.columns = spreadsheet.iloc[32]
+    # spreadsheet.columns = spreadsheet.iloc[33]
 
-    # for index, row in spreadsheet.loc[:, keywords].iterrows():
-    #     if(row['Quote Status'] == "Won" and type(row["Purchase Order Date"]) is not float and type(row['Trello Card Created']) is not datetime.datetime and type(row['Customer']) is str):
-    #         if(row['Trello Card Created'].lower() != "n/a" and row['Trello Card Created'].lower() != "new"):
-    #             if (type(row['Purchase Order Date']) is datetime.datetime and row['Purchase Order Date'].year >= 2024):
-    #             # if (type(row['Purchase Order Date']) is datetime.datetime and row['Purchase Order Date'].year >= 2024) or type(row['Purchase Order Date']) is str:
-    #                 data.append(Order(row['Job No.'], row['Customer'], row['Client']))
+
+    column_index = None
+    for index, row in spreadsheet.iterrows():
+            if(row.iloc[0] == "Job No."):
+               column_index = index
+
+    spreadsheet.columns = spreadsheet.iloc[column_index]
 
     for index, row in spreadsheet.loc[:, keywords].iterrows():
         if (type(row["Job No."]) is int):
