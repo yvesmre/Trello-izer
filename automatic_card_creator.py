@@ -13,7 +13,6 @@ def main():
 
     LIST_DESINATION = TEST_LIST # if USE_TEST_LIST else FIT_OUT_BOARD
 
-    # print("Hello")
     updates = {}
     orders = parse_spreadsheets_for_orders(EXCEL_SPREADSHEET_READ)
 
