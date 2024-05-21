@@ -2,7 +2,7 @@
 
 Custom Trello Workspace Tools for automatic generation of Trello cards to a production database from a dataSource
 
-### Automatic Trello Card Creation from Excel and MYOB
+## Automatic Trello Card Creation from Excel and MYOB
 
 - [x] Create Trello Automatically from Incoming Data
 - - [x] Programmatically Create Trello Cards
@@ -17,10 +17,10 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - [ ] Configuration system - (status: partial)
 - [x] Easily useable executable file
 
-### Trello Checklist Reporting
+## Trello Checklist Reporting
 
 - [x] Finished
 
-### Duplicate Detector
+## Duplicate Detector
 
 - [x] Finished
