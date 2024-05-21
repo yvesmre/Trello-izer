@@ -2,7 +2,6 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
-import csv
 import pandas as pd
 from variables import *
 import emailer

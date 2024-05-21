@@ -146,9 +146,7 @@ def create_excel_file(board_id, filename):
 
   writer = StyleFrame.ExcelWriter(os.getcwd() + filename)
   sf = StyleFrame(frame)
-  # sf.P_FACTOR = 1
-  # sf.A_FACTOR = 1
-
+ 
   sf.set_column_width(columns='Card Title', width=25)
   sf.set_column_width(columns='Checklist', width=50)
   sf.set_column_width(columns='Checklist Item', width=70)
@@ -159,4 +157,3 @@ def create_excel_file(board_id, filename):
   writer.close()
 
 
-create_excel_file(FIT_OUT_BOARD,  "/reports/" +  str(datetime.datetime.now()).replace(':','.') +  " fit out report.xlsx")
