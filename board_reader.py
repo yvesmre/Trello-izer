@@ -7,6 +7,7 @@ from variables import *
 import emailer
 import schedule
 import time
+import gc
 
 headers = {
   "Accept": "application/json"
@@ -80,6 +81,7 @@ def look_for_duplicates(board, name):
 def run_task():
   look_for_duplicates(FIT_OUT_BOARD, "Fit Out")
   look_for_duplicates(DRAFTING_BOARD, "Drafting")
+  gc.collect()
 
 if __name__ == "__main__":
     
