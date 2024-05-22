@@ -44,14 +44,14 @@ config.read('config.ini')
     
 WRITE_TO_EXCEL = config["SETTINGS"].getboolean("write to excel")
 DIFFERENT_DESTINATION_EXCEL = config["SETTINGS"].getboolean("different excel destination")
-EXCEL_SPREADSHEET_READ = config["FILE LOCATIONS"]["excel schedule read"]
-EXCEL_SPREADSHEET_WRITE = config["FILE LOCATIONS"]["excel schedule write"]
+EXCEL_SPREADSHEET_READ = config["FILE LOCATIONS"].get(option="excel schedule read", fallback="Input.xlsx")
+EXCEL_SPREADSHEET_WRITE = config["FILE LOCATIONS"].get(option="excel schedule write", fallback="Output.xlsx")
 
-MYOB_API_KEY =  config["SECRETS"]["myob api key"]
-MYOB_API_SECRET = config["SECRETS"]["myob api secret"]
+MYOB_API_KEY =  config["SECRETS"].get(option="myob api key", fallback="")
+MYOB_API_SECRET = config["SECRETS"].get(option="myob api secret", fallback="")
 
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
-DRAFTING_CARD_TEMPLATE =  config['BOARD and LIST IDS']['drafting card template']
+DRAFTING_CARD_TEMPLATE =  config['BOARD and LIST IDS'].get(option='drafting card template', fallback="")

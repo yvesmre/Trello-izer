@@ -1,8 +1,10 @@
 altgraph==0.17.4
+attrs==23.2.0
 bottle==0.12.25
 bottle-websocket==0.2.9
 certifi==2024.2.2
 charset-normalizer==3.3.2
+colour==0.1.5
 Eel==0.16.0
 et-xmlfile==1.1.0
 future==1.0.0
@@ -11,6 +13,8 @@ gevent-websocket==0.10.1
 greenlet==3.0.3
 idna==3.7
 importlib_metadata==7.1.0
+jsonschema==4.22.0
+jsonschema-specifications==2023.12.1
 macholib==1.16.3
 mysql-connector-python==8.4.0
 numpy==1.26.4
@@ -23,12 +27,16 @@ pyparsing==3.1.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.1
+referencing==0.35.1
 requests==2.31.0
+rpds-py==0.18.1
 schedule==1.2.1
 six==1.16.0
+styleframe==4.2
 tzdata==2024.1
 urllib3==2.2.1
 whichcraft==0.6.1
+XlsxWriter==3.2.0
 zipp==3.18.1
 zope.event==5.0
 zope.interface==6.3
