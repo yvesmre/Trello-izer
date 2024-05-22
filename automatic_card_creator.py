@@ -28,8 +28,8 @@ def main():
         else: print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
         
         if(len(order.lines) > 0): # Only do job cards for ones with MYOB entries ### Could be a setting later
-            card = create_card(TEST_LIST, str(order.job_number) + "-" + order.client, "", FIT_OUT_BUILD_TEMPLATE)["id"]
-            create_card(TEST_LIST, str(order.job_number) + "- DRAFTING -" + order.client, "", DRAFTING_CARD_TEMPLATE)["id"]
+            card = create_card(TEST_LIST, str(order.job_number) + " - " + order.client, "", FIT_OUT_BUILD_TEMPLATE)["id"]
+            create_card(TEST_LIST, str(order.job_number) + " - DRAFTING - " + order.client, "", DRAFTING_CARD_TEMPLATE)["id"]
             for line in order.lines:
                 create_list(card, line, BUILD_CHECKLIST_TEMPLATE)
             updates[str(order.job_number)] = date.today()
