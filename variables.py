@@ -4,8 +4,8 @@ import configparser
 
 load_dotenv()
 
-AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-API_KEY = os.getenv("API_KEY")
+# AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+# API_KEY = os.getenv("API_KEY")
 FIT_OUT_BOARD = os.getenv("FIT_OUT_BOARD")
 DRAFTING_BOARD = os.getenv("DRAFTING_BOARD")
 BUILD_CHECKLIST_TEMPLATE = os.getenv("BUILD_CHECKLIST")
@@ -42,6 +42,10 @@ if not os.path.isfile('config.ini'):
 
 config.read('config.ini')
     
+
+AUTH_TOKEN = config["SECRETS"].get(option="trello auth token", fallback="")
+API_KEY =  config["SECRETS"].get(option="trello api key", fallback="")
+
 WRITE_TO_EXCEL = config["SETTINGS"].getboolean("write to excel")
 DIFFERENT_DESTINATION_EXCEL = config["SETTINGS"].getboolean("different excel destination")
 EXCEL_SPREADSHEET_READ = config["FILE LOCATIONS"].get(option="excel schedule read", fallback="Input.xlsx")
