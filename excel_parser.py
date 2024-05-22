@@ -15,6 +15,7 @@ class Order():
     def set_lines(self, lines):
         self.lines = []
         for line in lines:
+            if(line["Type"] == "Header"): continue
             self.lines.append(line["Description"])
 
     def __str__(self):
