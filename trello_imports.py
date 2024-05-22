@@ -124,7 +124,7 @@ def create_excel_file(board_id, filename):
     checklists = import_checklist(card['id'])
 
     card_name = card['name']
-    
+    print("Doing Card:" + card_name)
     for obj in checklists:
       for checklist_item in obj["checkItems"]:
         to_json['Card Title'].append(card_name)
