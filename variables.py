@@ -4,13 +4,9 @@ import configparser
 
 load_dotenv()
 
-# AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-# API_KEY = os.getenv("API_KEY")
-FIT_OUT_BOARD = os.getenv("FIT_OUT_BOARD")
-DRAFTING_BOARD = os.getenv("DRAFTING_BOARD")
-BUILD_CHECKLIST_TEMPLATE = os.getenv("BUILD_CHECKLIST")
+# BUILD_CHECKLIST_TEMPLATE = os.getenv("BUILD_CHECKLIST")
 
-FIT_OUT_BUILD_TEMPLATE = os.getenv("FIT_OUT_BUILD_TEMPLATE")
+# FIT_OUT_BUILD_TEMPLATE = os.getenv("FIT_OUT_BUILD_TEMPLATE")
 
 TEST_LIST = os.getenv("TEST_LIST")
 TEST_BOARD = os.getenv("TEST_BOARD")
@@ -30,7 +26,7 @@ if not os.path.isfile('config.ini'):
                         "trello auth token": '',
                         'trello api key':''
                         }
-    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", 'drafting card template':""}
+    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", 'fit out job card template': '', 'drafting card template':"", 'fit out job checklist template': ''}
     config["FILE LOCATIONS"] = {"excel schedule read": '', "excel schedule write": ''}
     config['DUPLICATE DETECTOR SETTINGS'] = {"sender address" : '', 'sender credentials': '', 'receiver address': ''}
 
@@ -58,4 +54,10 @@ EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
+
+FIT_OUT_BOARD = config['BOARD and LIST IDS'].get(option="fit out board", fallback="")
+DRAFTING_BOARD = config['BOARD and LIST IDS'].get(option="drafting board", fallback="")
+
 DRAFTING_CARD_TEMPLATE =  config['BOARD and LIST IDS'].get(option='drafting card template', fallback="")
+FIT_OUT_BUILD_TEMPLATE = config['BOARD and LIST IDS'].get(option='fit out job card template', fallback="")
+BUILD_CHECKLIST_TEMPLATE = config['BOARD and LIST IDS'].get(option='fit out job checklist template', fallback="")
