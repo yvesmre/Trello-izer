@@ -117,7 +117,7 @@ def create_excel_file(board_id, filename):
 
   board = import_cards_with_custom_fields_from_board(board_id)
 
-  to_json = {"Card Title": [], "Checklist": [], 'Checklist Item': [],  "Member": [], "Last Modified": [] }
+  to_json = {"Card Title": [], "Checklist": [], 'Checklist Item': [],  "Member": [], "Card Last Modified": [] }
 
   user_to_name = {}
   for card in board:
@@ -130,7 +130,7 @@ def create_excel_file(board_id, filename):
         to_json['Card Title'].append(card_name)
         to_json['Checklist'].append(obj['name'])
         to_json['Checklist Item'].append(checklist_item['name'])
-        to_json["Last Modified"].append(datetime.datetime.strptime(card['dateLastActivity'].split('T')[0].replace('-','/'), '%Y/%m/%d'))
+        to_json["Card Last Modified"].append(datetime.datetime.strptime(card['dateLastActivity'].split('T')[0].replace('-','/'), '%Y/%m/%d'))
         if type(checklist_item['idMember']) is str:
           if checklist_item['idMember'] not in user_to_name.keys():
             user = import_user(checklist_item['idMember'])
@@ -152,6 +152,7 @@ def create_excel_file(board_id, filename):
   sf.set_column_width(columns='Checklist', width=50)
   sf.set_column_width(columns='Checklist Item', width=70)
   sf.set_column_width(columns='Member', width=25)
+  sf.set_column_width(columns='Card Last Modified', width=20)
   sf.to_excel(excel_writer=writer, row_to_add_filters=0,index=False)
 
 
