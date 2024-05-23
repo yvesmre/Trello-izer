@@ -52,16 +52,27 @@ def create_list(id, name, templateId):
 def update_card(card, desc):
   update_url = "https://api.trello.com/1/cards/" + card
 
-  headers = {
-    "Accept": "application/json"
-  }
-
   query = dict(initial_query)
   query['desc'] = desc
 
   response = requests.request(
     "PUT",
     update_url,
+    headers=headers,
+    params=query
+  )
+
+  return json.loads(response.text)
+
+def create_attachment(card, link):
+  attachment_url = "https://api.trello.com/1/cards/" + card + "/attachments"
+
+  query = dict(initial_query)
+  query["url"]= link
+
+  response = requests.request(
+    "POST",
+    attachment_url,
     headers=headers,
     params=query
   )

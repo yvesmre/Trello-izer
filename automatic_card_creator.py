@@ -28,11 +28,19 @@ def main():
         else: print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
         
         if(len(order.lines) > 0): # Only do job cards for ones with MYOB entries ### Could be a setting later
-            card = create_card(TEST_LIST, str(order.job_number) + " - " + order.client, "", FIT_OUT_BUILD_TEMPLATE)["id"]
-            update_card(card, "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1])
-            create_card(TEST_LIST, str(order.job_number) + " - DRAFTING - " + order.client, "", DRAFTING_CARD_TEMPLATE)["id"]
+            fit_out_card = create_card(TEST_LIST, str(order.job_number) + " - " + order.client, "", FIT_OUT_BUILD_TEMPLATE)
+            fit_out_card_id = fit_out_card["id"]
+            fit_out_card_url = fit_out_card["url"]
+            
+
+            update_card(fit_out_card_id, "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1])
+            drafting_card = create_card(TEST_LIST, str(order.job_number) + " - DRAFTING - " + order.client, "", DRAFTING_CARD_TEMPLATE)
+
+            create_attachment(drafting_card["id"], fit_out_card_url)
+            create_attachment(fit_out_card_id, drafting_card["url"])
+
             for line in order.lines:
-                create_list(card, line, BUILD_CHECKLIST_TEMPLATE)
+                create_list(fit_out_card_id, line, BUILD_CHECKLIST_TEMPLATE)
             updates[str(order.job_number)] = date.today()
 
     if DIFFERENT_DESTINATION_EXCEL:
