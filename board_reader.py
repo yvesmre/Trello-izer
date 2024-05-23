@@ -70,7 +70,7 @@ def look_for_duplicates(board, name):
 
     for duplicate in duplicates:
        body = body + "<li>" + duplicate + "</li>"
-    
+    print("Duplicates in: " + name + "Board, sending email")
     emailer.send_email(EMAIL_RECEIVER, "Duplicates Found in Board:" + name, body)
   else:
      print("No duplicates found in the provided board!")
