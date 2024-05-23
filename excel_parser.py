@@ -11,12 +11,15 @@ class Order():
         self.customer = customer
         self.client = client
         self.lines = []
+        self.headers =[]
     
     def set_lines(self, lines):
         self.lines = []
         for line in lines:
-            if(line["Type"] == "Header"): continue
-            self.lines.append(line["Description"])
+            if(line["Type"] == "Header"): 
+                self.headers.append(line["Description"])
+            else:
+                self.lines.append(line["Description"])
 
     def __str__(self):
         return f"{self.job_number} {self.customer} {self.client} {self.lines}"

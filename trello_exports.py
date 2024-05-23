@@ -49,7 +49,24 @@ def create_list(id, name, templateId):
 
   return json.loads(response.text)
 
+def update_card(card, desc):
+  update_url = "https://api.trello.com/1/cards/" + card
 
+  headers = {
+    "Accept": "application/json"
+  }
+
+  query = dict(initial_query)
+  query['desc'] = desc
+
+  response = requests.request(
+    "PUT",
+    update_url,
+    headers=headers,
+    params=query
+  )
+
+  return json.loads(response.text)
 
 ##Testing
 if __name__ == "__main__":
