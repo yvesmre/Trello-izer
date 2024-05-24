@@ -10,3 +10,4 @@ output
 dist/
 *.code-workspace
 *.ini
+.DS_Store
