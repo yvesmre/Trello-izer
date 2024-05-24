@@ -1,19 +1,6 @@
 import os
-from dotenv import load_dotenv
 import configparser
 import sys
-load_dotenv()
-
-# BUILD_CHECKLIST_TEMPLATE = os.getenv("BUILD_CHECKLIST")
-
-# FIT_OUT_BUILD_TEMPLATE = os.getenv("FIT_OUT_BUILD_TEMPLATE")
-
-# TEST_LIST = os.getenv("TEST_LIST")
-# TEST_BOARD = os.getenv("TEST_BOARD")
-
-# EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-# EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
-# EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
 
 config = configparser.ConfigParser()
 
