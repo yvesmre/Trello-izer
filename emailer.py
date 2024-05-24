@@ -4,9 +4,6 @@ from variables import*
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-
-
-
 def send_email(receiver_address, subject, body):
     server = smtplib.SMTP("smtp.gmail.com", 587)
     

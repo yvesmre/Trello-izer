@@ -26,7 +26,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # Send a simple response
-        message = """If you see this window, it was supposed to close automatically! <script> window.close() </script>"""
+        message = """<body> If you see this window, it was supposed to close automatically! </body> <script defer> window.close() </script>"""
         self.wfile.write(message.encode('utf-8'))
         sys.exit()
 
