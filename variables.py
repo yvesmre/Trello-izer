@@ -40,9 +40,9 @@ EXCEL_SPREADSHEET_WRITE = config["FILE LOCATIONS"].get(option="excel schedule wr
 MYOB_API_KEY =  config["SECRETS"].get(option="myob api key", fallback="")
 MYOB_API_SECRET = config["SECRETS"].get(option="myob api secret", fallback="")
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_CREDENTIALS = os.getenv("EMAIL_CREDENTIALS")
-EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
+EMAIL_ADDRESS = config.get(section="DUPLICATE DETECTOR SETTINGS", option="sender address", fallback='')
+EMAIL_CREDENTIALS = config.get(section="DUPLICATE DETECTOR SETTINGS", option="sender credentials", fallback='')
+EMAIL_RECEIVER = config.get(section="DUPLICATE DETECTOR SETTINGS", option="receiver address", fallback='')
 
 
 FIT_OUT_BOARD = config['BOARD and LIST IDS'].get(option="fit out board", fallback="")

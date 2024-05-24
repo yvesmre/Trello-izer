@@ -1,7 +1,6 @@
 import requests
 import json
 import os
-from dotenv import load_dotenv
 import pandas as pd
 from variables import *
 import emailer
@@ -70,7 +69,7 @@ def look_for_duplicates(board, name):
 
     for duplicate in duplicates:
        body = body + "<li>" + duplicate + "</li>"
-    print("Duplicates in: " + name + "Board, sending email")
+    print("Duplicates in: " + name + " Board, sending email")
     emailer.send_email(EMAIL_RECEIVER, "Duplicates Found in Board:" + name, body)
   else:
      print("No duplicates found in the provided board!")
@@ -81,13 +80,14 @@ def look_for_duplicates(board, name):
 def run_task():
   look_for_duplicates(FIT_OUT_BOARD, "Fit Out")
   look_for_duplicates(DRAFTING_BOARD, "Drafting")
-  gc.collect()
+  # gc.collect()
 
 if __name__ == "__main__":
     
-    schedule.every(120).minutes.do(run_task)
+    run_task()
+    # schedule.every(120).minutes.do(run_task)
 
-    while True:
-       schedule.run_pending()
-       time.sleep(1)
+    # while True:
+    #    schedule.run_pending()
+    #    time.sleep(1)
 
