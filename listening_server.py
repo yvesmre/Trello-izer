@@ -19,18 +19,16 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             json.dump(JSON_Response, json_file, indent=4)    
         f.close()
         
-        # Send response status code
+      
         self.send_response(200)
-        # Send headers
+     
         self.send_header('Content-type', 'text/html')
         self.end_headers()
 
-        # Send a simple response
         message = """<body> If you see this window, it was supposed to close automatically! </body> <script defer> window.close() </script>"""
         self.wfile.write(message.encode('utf-8'))
         sys.exit()
 
-# Set up and start the server
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):
     server_address = ('', 8000) 
     httpd = server_class(server_address, handler_class)
