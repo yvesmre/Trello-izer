@@ -30,8 +30,8 @@ def create_card(list, name, desc, template):
     headers=headers,
     params=query
   )
+
   JSON_Response = json.loads(response.text)
-  
   return JSON_Response
 
 def create_list(id, name, templateId):

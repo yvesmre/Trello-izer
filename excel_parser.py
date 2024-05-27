@@ -29,9 +29,6 @@ def parse_spreadsheets_for_orders(file):
 
     spreadsheet  = pd.read_excel(file, keep_default_na=False)
 
-    # spreadsheet.columns = spreadsheet.iloc[33]
-
-
     column_index = None
     for index, row in spreadsheet.iterrows():
             if(row.iloc[0] == "Job No."):
