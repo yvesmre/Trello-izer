@@ -69,7 +69,6 @@ def request_sales(access_token):
   headers = {
     "Accept": "application/json",
     'Authorization': 'Bearer ' + access_token,
-    # 'x-myobapi-cftoken': 'TWlndWVsLlJleWVzQGstZHJpdmUuY29tLmF1Okl0c21lZmVybmJyYWR5MSE=',
     'x-myobapi-key': MYOB_API_KEY,
     'x-myobapi-version': 'v2'
   }
