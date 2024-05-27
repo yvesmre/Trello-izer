@@ -31,8 +31,7 @@ def create_card(list, name, desc, template):
     params=query
   )
 
-  JSON_Response = json.loads(response.text)
-  return JSON_Response
+  return json.loads(response.text)
 
 def create_list(id, name, templateId):
   checklist_url = url + "/" + id + "/checklists"
