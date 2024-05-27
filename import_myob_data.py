@@ -110,15 +110,15 @@ def import_myob():
 
   write_to_json("access_token.json", JSON)
 
-  JSON_2 = (request_sales(JSON['access_token']))
+  SALES_JSON = (request_sales(JSON['access_token']))
 
-  if("Errors" in JSON_2):
+  if("Errors" in SALES_JSON):
     print("Invalid or expired access and refresh tokens, reacquiring and restarting")
     os.remove('access_token.json')
     import_myob()
     return
 
-  dataframe = pd.read_json(JSON_2)
+  dataframe = pd.read_json(SALES_JSON)
   dataframe.to_json('MYOB.json', indent=4)
 
 def search_myob(job_no):
