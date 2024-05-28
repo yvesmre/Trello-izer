@@ -57,7 +57,7 @@ def update_row(file, updates):
         if(row[0].value == "Job No."):
             for i in range(len(row)):
                 if(row[i].value == "Trello Card Created"):
-                    trello_card_created_column = 19
+                    trello_card_created_column = i
                     break
 
     for row in sh.iter_rows(): 
