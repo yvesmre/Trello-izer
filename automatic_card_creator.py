@@ -18,6 +18,8 @@ def main():
         print("No cards to be created!")
         return
     
+    cards_created = 0
+
     for order in orders:
         myob = search_myob(order.job_number)
         if myob:
@@ -41,11 +43,12 @@ def main():
             for line in order.lines:
                 create_list(fit_out_card_id, line, BUILD_CHECKLIST_TEMPLATE)
             updates[str(order.job_number)] = date.today()
-
+            cards_created = cards_created + 1
     if DIFFERENT_DESTINATION_EXCEL:
         shutil.copyfile(EXCEL_SPREADSHEET_READ, EXCEL_SPREADSHEET_WRITE)
 
     update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates)
+    print(str(cards_created) + " cards created!")
 
 if __name__ == "__main__":
     main()
