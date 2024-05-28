@@ -48,6 +48,22 @@ def create_list(id, name, templateId):
 
   return json.loads(response.text)
 
+def delete_list(id, checklist_id):
+  checklist_url = url + "/" + id + "/checklists/" + checklist_id
+
+  query = dict(initial_query)
+
+  response = requests.request(
+   "DELETE",
+   checklist_url,
+   params=query
+  )
+
+  return json.loads(response.text)
+
+
+
+
 def update_card(card, desc):
   update_url = "https://api.trello.com/1/cards/" + card
 

@@ -1,6 +1,7 @@
 from excel_parser import *
 from variables import *
 from trello_exports import *
+from trello_imports import *
 from datetime import date
 from import_myob_data import *
 import shutil
@@ -34,6 +35,11 @@ def main():
             fit_out_card_id = fit_out_card["id"]
             fit_out_card_url = fit_out_card["url"]
             
+            checklists = import_checklist(fit_out_card_id)
+           
+            # Template Cards may come with Template Lists, disregard and delete.
+            for checklist in checklists:
+                delete_list(fit_out_card_id, checklist['id'])
 
             update_card(fit_out_card_id, "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1])
             drafting_card = create_card(DRAFTING_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, str(order.job_number) + " - DRAFTING - " + order.client, "", DRAFTING_CARD_TEMPLATE)
