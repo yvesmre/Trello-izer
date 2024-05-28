@@ -52,10 +52,17 @@ def update_row(file, updates):
     spreadsheet = openpyxl.load_workbook(file)
 
     sh = spreadsheet.active 
-  
+    trello_card_created_column = 19
+    for row in sh.iter_rows():
+        if(row[0].value == "Job No."):
+            for i in range(len(row)):
+                if(row[i].value == "Trello Card Created"):
+                    trello_card_created_column = 19
+                    break
+
     for row in sh.iter_rows(): 
         if str(row[0].value) in updates:
-            row[18].value = updates.pop(str(row[0].value))
+            row[trello_card_created_column].value = updates.pop(str(row[0].value))
 
     spreadsheet.save(file)
         

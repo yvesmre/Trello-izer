@@ -37,7 +37,7 @@ def main():
             
             checklists = import_checklist(fit_out_card_id)
            
-            # Template Cards may come with Template Lists, disregard and delete.
+            # Template Cards may come with Template Lists, disregard and delete. 
             for checklist in checklists:
                 delete_list(fit_out_card_id, checklist['id'])
 
