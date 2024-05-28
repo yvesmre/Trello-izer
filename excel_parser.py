@@ -40,9 +40,10 @@ def parse_spreadsheets_for_orders(file):
         if (type(row["Job No."]) is int):
             if(row['Quote Status'] == "Won" and type(row['Trello Card Created']) is not datetime.datetime):
                 if(row['Trello Card Created'].lower() != "n/a" and row['Trello Card Created'].lower() != "new"):
-                        if(type(row["Invoice Date"]) is str):
-                            order = Order(row['Job No.'], row['Customer'], row['Client'])
-                            data.append(order)
+                        if(not row['Trello Card Created']):
+                            if(type(row["Invoice Date"]) is str):
+                                order = Order(row['Job No.'], row['Customer'], row['Client'])
+                                data.append(order)
 
     return data
 
