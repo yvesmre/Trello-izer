@@ -40,8 +40,12 @@ def main():
             # Template Cards may come with Template Lists, disregard and delete. 
             for checklist in checklists:
                 delete_list(fit_out_card_id, checklist['id'])
+            fit_out_description = "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1] + '\n'
 
-            update_card(fit_out_card_id, "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1])
+            if len(order.headers) > 2:
+                for i in range(2, len(order.headers)):
+                    fit_out_description = fit_out_description + "\n##" + "**" + order.headers[i] + "**"
+            update_card(fit_out_card_id, fit_out_description)
             drafting_card = create_card(DRAFTING_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, str(order.job_number) + " - DRAFTING - " + order.client, "", DRAFTING_CARD_TEMPLATE)
 
             create_attachment(drafting_card["id"], fit_out_card_url)
