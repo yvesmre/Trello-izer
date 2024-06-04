@@ -9,7 +9,7 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - - [x] Parse Excel and MYOB to feed into automated Trello-creation
 - - - [x] Parse Excel scheduling sheets to Trello
 - - - [x] Parse MYOB
-- - - [ ] Use MYOB headers properly in the card fields.
+- - - [x] Use MYOB headers properly in the card fields.
 - - - [x] Cross check data across the two sources
 - - [x] Write files to a remote OneDrive location
 
