@@ -60,7 +60,7 @@ if __name__ == "__main__":
     
             if(discrepancy):
                 myob_header = tkinter.Label(m, text="Myob Discrepancies")
-                myob_header.config(bg='black')
+                # myob_header.config(bg='black')
                 myob_header.grid(row=2, column=1)
 
                 ms_myob = tkinter.Label(m, text=discrepancy[entry]['myob discrepancies'])
@@ -69,11 +69,11 @@ if __name__ == "__main__":
 
 
                 trello_header = tkinter.Label(m, text="Trello Discrepancies")
-                trello_header.config(bg='black')
+                # trello_header.config(bg='black')
                 trello_header.grid(row=2, column=3)
 
                 ms_trello = tkinter.Label(m, text=discrepancy[entry]['trello discrepancies'])
-                ms_trello.config(bg='darkgray')
+                ms_trello.config(bg='gray')
                 ms_trello.grid(row=3, column=3)
             
 
