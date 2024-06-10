@@ -116,6 +116,10 @@ if __name__ == "__main__":
                     fit_text_to_widget(ms_trello)
                    
 
+    def run():
+        thread = Thread(target=run_discrepancy_lookup)
+        thread.start()
+
     m = tkinter.Tk()
     
     m.minsize(512, 512)
@@ -127,7 +131,7 @@ if __name__ == "__main__":
     e1 = tkinter.Entry(m)
     e1.grid(row=0, column=1)
 
-    start_button = tkinter.Button(m, text="Look for Discrepancies", command=run_discrepancy_lookup)
+    start_button = tkinter.Button(m, text="Look for Discrepancies", command=run)
     start_button.grid(row=1, column=1)
 
     m.mainloop()
