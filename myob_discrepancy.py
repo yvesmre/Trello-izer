@@ -97,7 +97,7 @@ if __name__ == "__main__":
                     myob_disc = discrepancy[entry]['myob discrepancies'][i]
                     ms_myob = tkinter.Text(m, wrap="word")
                     ms_myob.insert('1.0', myob_disc)
-                    ms_myob.config(bg='gray30')
+                    ms_myob.config(bg='gray30', fg="white")
                     ms_myob.grid(row=i+3, column=1)
                     ms_myob.config(state="disabled")
                     fit_text_to_widget(ms_myob)
@@ -110,7 +110,7 @@ if __name__ == "__main__":
                     trello_disc =discrepancy[entry]['trello discrepancies'][i]
                     ms_trello = tkinter.Text(m, wrap="word")
                     ms_trello.insert('1.0', trello_disc)
-                    ms_trello.config(bg='gray30')
+                    ms_trello.config(bg='gray30', fg="white")
                     ms_trello.grid(row=i+3, column=3)
                     ms_trello.config(state="disabled")
                     fit_text_to_widget(ms_trello)
