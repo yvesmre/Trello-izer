@@ -5,6 +5,7 @@ from trello_imports import *
 from datetime import date
 from import_myob_data import *
 import shutil
+import tkinter
 
 
 # Main python class and function where everything happens
@@ -61,6 +62,18 @@ def main():
     update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates)
     
 if __name__ == "__main__":
-    main()
+    def run():
+        thread = Thread(target = main)
+        thread.start()
+    
+    m = tkinter.Tk()
+    
+    m.minsize(128, 128)
+    m.columnconfigure(1, weight=1)
+    m.rowconfigure(1, weight=1)
 
+    start_button = tkinter.Button(m, text="Look for Cards and Deploy", command=run)
+    start_button.grid(row=1, column=1)
+
+    m.mainloop()
 
