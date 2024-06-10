@@ -82,6 +82,14 @@ if __name__ == "__main__":
         for child in children:
             if type(child) == tkinter.Text:
                 child.destroy()
+            if(type(child) ==tkinter.Label):
+                if(not child['text'] == "Job No."):
+                    child.destroy()
+
+
+        label = tkinter.Label(m, text="Searching...")
+        label.grid(row=2, column=1)
+        label.config(bg="green")
 
         entry = e1.get()
         if(entry.isnumeric()):
@@ -115,6 +123,7 @@ if __name__ == "__main__":
                     ms_trello.config(state="disabled")
                     fit_text_to_widget(ms_trello)
                    
+                label.destroy()
 
     def run():
         thread = Thread(target=run_discrepancy_lookup)
