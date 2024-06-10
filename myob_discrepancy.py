@@ -2,6 +2,7 @@ from collections import OrderedDict
 from import_myob_data import *
 from trello_imports import *
 import tkinter
+import sv_ttk
 
 def look_for_discrepancy(job):
 
@@ -144,6 +145,7 @@ if __name__ == "__main__":
 
     start_button = tkinter.Button(m, text="Look for Discrepancies", command=run)
     start_button.grid(row=1, column=1)
+    start_button.config(fg='gray20')
 
-    
+    sv_ttk.set_theme("dark")
     m.mainloop()
