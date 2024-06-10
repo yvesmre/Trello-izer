@@ -42,17 +42,47 @@ def look_for_discrepancy(job):
                 if(items not in myob_lines):
                     trello_discrepancies.append(items)
 
-            if len(myob_discrepancies) > 0:
+            if len(myob_discrepancies) > 0 or len(trello_discrepancies) > 0:
                 json_out[job_no] = {"myob": myob_lines, 'trello': trello_lines, 'myob discrepancies': myob_discrepancies, 'trello discrepancies': trello_discrepancies}
 
             break
+
+    # print(json.dumps(json_out, indent=4))
 
     return json_out
 
 
 if __name__ == "__main__":
 
-    def hello():
+    def all_children (wid) :
+        _list = wid.winfo_children()
+
+        for item in _list :
+            if item.winfo_children() :
+                _list.extend(item.winfo_children())
+
+        return _list
+
+
+    def fit_text_to_widget(text_widget):
+        # Get the number of lines and the longest line's length
+        num_lines = int(text_widget.index('end-1c').split('.')[0])
+        longest_line_length = max(len(line) for line in text_widget.get("1.0", "end-1c").split('\n'))
+
+        # Calculate the widget's required height and width
+        height = int(num_lines*2)
+        width = longest_line_length
+
+        # Resize the widget to fit the text
+        text_widget.config(width=width, height=height)
+
+    def run_discrepancy_lookup():
+        children = all_children(m)
+
+        for child in children:
+            if type(child) == tkinter.Text:
+                child.destroy()
+
         entry = e1.get()
         if(entry.isnumeric()):
             
@@ -63,29 +93,43 @@ if __name__ == "__main__":
                 # myob_header.config(bg='black')
                 myob_header.grid(row=2, column=1)
 
-                ms_myob = tkinter.Label(m, text=discrepancy[entry]['myob discrepancies'])
-                ms_myob.config(bg='darkgray')
-                ms_myob.grid(row=3, column=1)
-
-
+                for i in range(len(discrepancy[entry]['myob discrepancies'])):
+                    myob_disc = discrepancy[entry]['myob discrepancies'][i]
+                    ms_myob = tkinter.Text(m, wrap="word")
+                    ms_myob.insert('1.0', myob_disc)
+                    ms_myob.config(bg='darkgray' if not i % 2 == 0 else 'gray')
+                    ms_myob.grid(row=i+3, column=1)
+                    ms_myob.config(state="disabled")
+                    fit_text_to_widget(ms_myob)
+                   
                 trello_header = tkinter.Label(m, text="Trello Discrepancies")
                 # trello_header.config(bg='black')
                 trello_header.grid(row=2, column=3)
 
-                ms_trello = tkinter.Label(m, text=discrepancy[entry]['trello discrepancies'])
-                ms_trello.config(bg='gray')
-                ms_trello.grid(row=3, column=3)
+                for i in range(len(discrepancy[entry]['trello discrepancies'])):
+                    trello_disc =discrepancy[entry]['trello discrepancies'][i]
+                    ms_trello = tkinter.Text(m, wrap="word")
+                    ms_trello.insert('1.0', trello_disc)
+                    ms_trello.config(bg='gray' if i % 2 == 0 else 'lightgray')
+                    ms_trello.grid(row=i+3, column=3)
+                    ms_trello.config(state="disabled")
+                    fit_text_to_widget(ms_trello)
+                   
+                
             
 
     m = tkinter.Tk()
     
     m.minsize(512, 512)
+    m.columnconfigure(1, weight=1)
+    m.columnconfigure(3, weight=1)
+
     tkinter.Label(m, text='Job No.').grid(row=0)
 
     e1 = tkinter.Entry(m)
     e1.grid(row=0, column=1)
 
-    start_button = tkinter.Button(m, text="Look for Discrepancies", command=hello)
+    start_button = tkinter.Button(m, text="Look for Discrepancies", command=run_discrepancy_lookup)
     start_button.grid(row=1, column=1)
 
     m.mainloop()
