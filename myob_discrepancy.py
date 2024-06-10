@@ -70,8 +70,8 @@ if __name__ == "__main__":
         longest_line_length = max(len(line) for line in text_widget.get("1.0", "end-1c").split('\n'))
 
         # Calculate the widget's required height and width
-        height = int(num_lines*2)
-        width = longest_line_length
+        height = int(int(longest_line_length/(512/8))*2)
+        width = int(min(longest_line_length, 512/8))
 
         # Resize the widget to fit the text
         text_widget.config(width=width, height=height)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
                     myob_disc = discrepancy[entry]['myob discrepancies'][i]
                     ms_myob = tkinter.Text(m, wrap="word")
                     ms_myob.insert('1.0', myob_disc)
-                    ms_myob.config(bg='darkgray' if not i % 2 == 0 else 'gray')
+                    ms_myob.config(bg='gray30')
                     ms_myob.grid(row=i+3, column=1)
                     ms_myob.config(state="disabled")
                     fit_text_to_widget(ms_myob)
@@ -110,7 +110,7 @@ if __name__ == "__main__":
                     trello_disc =discrepancy[entry]['trello discrepancies'][i]
                     ms_trello = tkinter.Text(m, wrap="word")
                     ms_trello.insert('1.0', trello_disc)
-                    ms_trello.config(bg='gray' if i % 2 == 0 else 'lightgray')
+                    ms_trello.config(bg='gray30')
                     ms_trello.grid(row=i+3, column=3)
                     ms_trello.config(state="disabled")
                     fit_text_to_widget(ms_trello)
