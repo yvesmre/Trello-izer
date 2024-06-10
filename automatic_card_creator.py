@@ -60,6 +60,8 @@ def main():
         shutil.copyfile(EXCEL_SPREADSHEET_READ, EXCEL_SPREADSHEET_WRITE)
 
     update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates)
+
+    print("Run Done, made ", len(updates), " cards")
     
 if __name__ == "__main__":
     def run():
