@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 
         label = tkinter.Label(m, text="Searching...")
-        label.grid(row=2, column=1)
+        label.grid(row=4, column=1)
         label.config(bg="green")
 
         entry = e1.get()
@@ -134,6 +134,8 @@ if __name__ == "__main__":
     m.minsize(512, 512)
     m.columnconfigure(1, weight=1)
     m.columnconfigure(3, weight=1)
+
+    m.rowconfigure(index=list(range(3, 50)), weight=1)
 
     tkinter.Label(m, text='Job No.').grid(row=0)
 
