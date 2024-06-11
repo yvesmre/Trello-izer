@@ -8,7 +8,7 @@ def look_for_discrepancy(job):
 
     import_myob()
 
-    board = import_cards_with_custom_fields_from_board(TEST_BOARD)
+    board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_BOARD)
 
     json_out = None
     card_data = None
