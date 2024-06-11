@@ -13,11 +13,6 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - - - [x] Cross check data across the two sources
 - - [x] Write files to a remote OneDrive location
 
-#### Non-outstanding Items that still need to be implemented in the final version
-
-- [x] Configuration system
-- [x] Easily useable executable file
-
 ## Trello Checklist Reporting
 
 - [x] Finished
@@ -25,3 +20,9 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 ## Duplicate Detector
 
 - [x] Finished
+
+## MYOB Trello Synchronizer Helper
+
+- [x] Detect differences between MYOB and Trello entries for the same card
+- [x] Add GUI for searching
+- - [x] Add way to deploy checklists from the dashboard itself
