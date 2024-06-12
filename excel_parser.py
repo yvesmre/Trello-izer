@@ -49,6 +49,7 @@ def parse_spreadsheets_for_orders(file):
 
 
 def update_row(file, updates):
+    updates = dict(updates)
     spreadsheet = openpyxl.load_workbook(file)
 
     sh = spreadsheet.active 
