@@ -35,6 +35,11 @@ def deploy_card(event):
 
 def cards_to_be_made(screen):
 
+
+    def threadify_deploy_card(event):
+        thread = Thread(target=deploy_card, args=(event, ))
+        thread.start()
+
     import_myob()
 
     orders = parse_spreadsheets_for_orders(EXCEL_SPREADSHEET_READ)
@@ -46,18 +51,20 @@ def cards_to_be_made(screen):
     for i in range(len(orders)):
         order = orders[i]
 
+        myob = search_myob(order.job_number)
+        if not myob:
+            print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
+            continue
+
         display = tkinter.Text(m)
         display.insert('1.0', str(order.job_number) + "-" + order.client)
         fit_text_to_widget(display)
         display.grid(row=2+i, column=1)
-        display.bind("<Button-1>", deploy_card)
+        display.bind("<Button-1>", threadify_deploy_card)
+
+    print("Done looking for cards")
 
 
-        myob = search_myob(order.job_number)
-        if myob:
-            lines = search_myob(order.job_number)["Lines"]
-            order.set_lines(lines)
-        else: print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
 
 
 
