@@ -6,6 +6,7 @@ from datetime import date
 from import_myob_data import *
 import shutil
 import tkinter
+import warnings
 
 def all_children (wid) :
     _list = wid.winfo_children()
@@ -53,7 +54,7 @@ def cards_to_be_made(screen):
 
         myob = search_myob(order.job_number)
         if not myob:
-            print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
+            # print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
             continue
 
         display = tkinter.Text(m)
@@ -136,13 +137,11 @@ def make_card(job_no):
         print("No cards to be created!")
         return
     
-    cards_created = len(orders)
-    print(str(cards_created) + " possible cards found!")
-
     order = None
     for ord in orders:
         if(str(ord.job_number) == job_no):
             order = ord
+            break
 
     myob = search_myob(order.job_number)
     if myob:
@@ -177,7 +176,6 @@ def make_card(job_no):
 
         updates[str(order.job_number)] = date.today()
 
-    print(updates)
     if DIFFERENT_DESTINATION_EXCEL:
         shutil.copyfile(EXCEL_SPREADSHEET_READ, EXCEL_SPREADSHEET_WRITE)
 
@@ -187,6 +185,7 @@ def make_card(job_no):
         
         
 if __name__ == "__main__":
+    warnings.simplefilter(action='ignore', category=FutureWarning)
     def run():
         thread = Thread(target = main)
         thread.start()
@@ -199,11 +198,13 @@ if __name__ == "__main__":
     
     m = tkinter.Tk()
     
-    m.minsize(196, 196)
+    m.minsize(256, 256)
     m.columnconfigure(1, weight=1)
     m.rowconfigure(1, weight=1)
 
-    start_button = tkinter.Button(m, text="Look for Cards", command=look_for_cards, width=24, height=4)
+    m.rowconfigure(list(range(2,50)), weight=1)
+
+    start_button = tkinter.Button(m, text="Look for Cards to be Made", command=look_for_cards, width=24, height=4)
     start_button.grid(row=1, column=1)
 
     m.mainloop()
