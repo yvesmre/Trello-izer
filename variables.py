@@ -1,6 +1,9 @@
 import os
 import configparser
 import sys
+import warnings
+
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 config = configparser.ConfigParser()
 

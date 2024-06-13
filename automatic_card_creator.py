@@ -6,7 +6,7 @@ from datetime import date
 from import_myob_data import *
 import shutil
 import tkinter
-import warnings
+# import warnings
 
 def all_children (wid) :
     _list = wid.winfo_children()
@@ -185,7 +185,7 @@ def make_card(job_no):
         
         
 if __name__ == "__main__":
-    warnings.simplefilter(action='ignore', category=FutureWarning)
+    # warnings.simplefilter(action='ignore', category=FutureWarning)
     def run():
         thread = Thread(target = main)
         thread.start()
