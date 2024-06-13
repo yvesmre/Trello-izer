@@ -37,6 +37,11 @@ def deploy_card(event):
 def cards_to_be_made(screen):
 
 
+    search_indicator = tkinter.Label(m, text="Searching...")
+    search_indicator.config(bg="green")
+    search_indicator.grid(row=2,column=1)
+
+
     def threadify_deploy_card(event):
         thread = Thread(target=deploy_card, args=(event, ))
         thread.start()
@@ -57,13 +62,14 @@ def cards_to_be_made(screen):
             # print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
             continue
 
-        display = tkinter.Text(m)
+        display = tkinter.Text(screen)
         display.insert('1.0', str(order.job_number) + "-" + order.client)
         fit_text_to_widget(display)
         display.grid(row=2+i, column=1)
         display.bind("<Button-1>", threadify_deploy_card)
 
     print("Done looking for cards")
+    search_indicator.destroy()
 
 
 
@@ -192,13 +198,15 @@ if __name__ == "__main__":
 
     def look_for_cards():
         thread = Thread(target = cards_to_be_made, args=(m,))
+
         thread.start()
 
 
     
     m = tkinter.Tk()
+    m.config(bg="black")
     
-    m.minsize(256, 256)
+    m.minsize(384, 384)
     m.columnconfigure(1, weight=1)
     m.rowconfigure(1, weight=1)
 
