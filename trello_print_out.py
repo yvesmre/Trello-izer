@@ -1,6 +1,7 @@
 import tkinter
 from functools import partial
 from trello_imports import *
+from docx import Document
 
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
