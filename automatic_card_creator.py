@@ -166,7 +166,11 @@ def make_card(job_no):
         # Template Cards may come with Template Lists, disregard and delete. 
         for checklist in checklists:
             delete_list(fit_out_card_id, checklist['id'])
-        fit_out_description = "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1] + '\n'
+        
+        try:
+            fit_out_description = "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1] + '\n'
+        except:
+            fit_out_description = ""
 
         if len(order.headers) > 2:
             for i in range(2, len(order.headers)):

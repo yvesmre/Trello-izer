@@ -88,7 +88,6 @@ if __name__ == "__main__":
     def search_card(widget):
         board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_LIST)
 
-
         create_spreadsheet(board_id=FIT_OUT_BOARD, job_no=widget.get(), filename="/output/" + widget.get() + ".xlsx")
         for child in all_children(m):
             if type(child) == tkinter.Text:
