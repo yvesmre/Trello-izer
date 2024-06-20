@@ -106,21 +106,26 @@ def create_spreadsheet(board_id, job_no, filename):
         for cell in row:
             if cell.value:
                 lines = int(len(str(cell.value)) / 70)
-                ws.row_dimensions[cell.row].height = (lines * 30)  # Adjust multiplier as needed
+                ws.row_dimensions[cell.row].height = (lines * 30) 
 
-
-    # Save the workbook
     wb.save(os.getcwd()+ filename)
 
-
+    #Linux compatibility begone!
     subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
 
 
 if __name__ == "__main__":
     def search_card(widget):
-        board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_LIST)
+        # board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_LIST)
 
-        create_spreadsheet(board_id=FIT_OUT_BOARD, job_no=widget.get(), filename="/output/" + widget.get() + ".xlsx")
+        label = tkinter.Label(m, text="Searching...")
+        label.grid(row=4, column=1)
+        label.config(bg="green")
+
+        thread = Thread(target=create_spreadsheet, args=(FIT_OUT_BOARD, widget.get(), "/output/" + widget.get() + ".xlsx"))
+        thread.start()
+   
+        # label.destroy()
         # for child in all_children(m):
         #     if type(child) == tkinter.Text:
         #         child.destroy()
