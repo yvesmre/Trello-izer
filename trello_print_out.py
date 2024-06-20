@@ -3,6 +3,7 @@ from functools import partial
 from trello_imports import *
 import os, subprocess, platform
 from openpyxl import load_workbook
+from openpyxl.styles import Font
 
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
@@ -73,7 +74,7 @@ def create_spreadsheet(board_id, job_no, filename):
     #   sf.set_column_width(columns='Member', width=25)
     #   sf.set_column_width(columns='Card Last Modified', width=20)
     #   sf.set_column_width(columns='Completion', width=20)
-    sf.to_excel(excel_writer=writer, row_to_add_filters=1,index=False)
+    sf.to_excel(excel_writer=writer, row_to_add_filters=2,index=False)
 
     writer.close()
 
@@ -83,6 +84,9 @@ def create_spreadsheet(board_id, job_no, filename):
     # Insert blank rows at the top
     ws.insert_rows(1, 2)
 
+    ws.cell(row=1, column=1, value="Build Out Sheet").font = Font(size = 27, bold=True)
+    ws.cell(row=2, column=1, value="JOB CARD: " + card_name).font = Font(size = 24, bold=True, underline='single')
+    
     # Save the workbook
     wb.save(os.getcwd()+ filename)
 
