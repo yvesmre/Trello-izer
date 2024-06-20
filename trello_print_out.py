@@ -55,18 +55,21 @@ def create_spreadsheet(board_id, job_no, filename):
             part_found = []
             for checklist_item in obj["checkItems"]:
                 if("Part No." in checklist_item['name']):
+                    to_json['Checklist'].append(obj['name'])
+                    to_json['Part No.'].append(checklist_item['name'].replace("Part No.", ''))
                     part_found.append(checklist_item['name'].replace("Part No.", ''))
-            
-    
-            to_json['Checklist'].append(obj['name'])
-            to_json['Part No.'].append('N/A' if not part_found else ''.join([f'[{s}], ' if i < len(part_found) - 1 else f'[{s}]' for i, s in enumerate(part_found)]))
+            if not part_found: 
+                to_json['Checklist'].append(obj['name'])
+                to_json['Part No.'].append('N/A' if not part_found else ''.join([f'[{s}], ' if i < len(part_found) - 1 else f'[{s}]' for i, s in enumerate(part_found)]))
 
         break
 
     frame = pd.DataFrame(data=to_json)
 
+    # frame.drop_duplicates()
     writer = StyleFrame.ExcelWriter(os.getcwd() + filename)
     sf = StyleFrame(frame)
+
 
     #   sf.set_column_width(columns='Card Title', width=25)
     sf.set_column_width(columns='Checklist', width=70)
@@ -87,6 +90,25 @@ def create_spreadsheet(board_id, job_no, filename):
     ws.cell(row=1, column=1, value="Build Out Sheet").font = Font(size = 27, bold=True)
     ws.cell(row=2, column=1, value="JOB CARD: " + card_name).font = Font(size = 24, bold=True, underline='single')
     
+    merge_start = 1
+
+    for row in range(2, ws.max_row + 1):
+        if ws.cell(row=row, column=1).value != ws.cell(row=row-1, column=1).value:
+            if merge_start < row - 1:
+                ws.merge_cells(start_row=merge_start, start_column=1, end_row=row-1, end_column=1)
+            merge_start = row
+
+    # Handle the last merge range in the first column
+    if merge_start < ws.max_row:
+        ws.merge_cells(start_row=merge_start, start_column=1, end_row=ws.max_row, end_column=1)
+
+    for row in ws.iter_rows(min_row=4, max_row=ws.max_row, min_col=1, max_col=1):
+        for cell in row:
+            if cell.value:
+                lines = int(len(str(cell.value)) / 70)
+                ws.row_dimensions[cell.row].height = (lines * 30)  # Adjust multiplier as needed
+
+
     # Save the workbook
     wb.save(os.getcwd()+ filename)
 
