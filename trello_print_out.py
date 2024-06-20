@@ -1,9 +1,8 @@
 import tkinter
 from functools import partial
 from trello_imports import *
-from docx import Document
-from docx.shared import Inches
 import os, subprocess, platform
+from openpyxl import load_workbook
 
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
@@ -65,7 +64,6 @@ def create_spreadsheet(board_id, job_no, filename):
 
     frame = pd.DataFrame(data=to_json)
 
-
     writer = StyleFrame.ExcelWriter(os.getcwd() + filename)
     sf = StyleFrame(frame)
 
@@ -75,10 +73,19 @@ def create_spreadsheet(board_id, job_no, filename):
     #   sf.set_column_width(columns='Member', width=25)
     #   sf.set_column_width(columns='Card Last Modified', width=20)
     #   sf.set_column_width(columns='Completion', width=20)
-    sf.to_excel(excel_writer=writer, row_to_add_filters=0,index=False)
-
+    sf.to_excel(excel_writer=writer, row_to_add_filters=1,index=False)
 
     writer.close()
+
+    wb = load_workbook(os.getcwd()+ filename)
+    ws = wb.active
+
+    # Insert blank rows at the top
+    ws.insert_rows(1, 2)
+
+    # Save the workbook
+    wb.save(os.getcwd()+ filename)
+
 
     subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
 
