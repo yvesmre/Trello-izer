@@ -3,7 +3,7 @@ from functools import partial
 from trello_imports import *
 from docx import Document
 from docx.shared import Inches
-import os
+import os, subprocess, platform
 
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
@@ -52,15 +52,14 @@ def create_spreadsheet(board_id, job_no, filename):
 
         for obj in checklists:
 
-            part_found = None
+            part_found = []
             for checklist_item in obj["checkItems"]:
                 if("Part No." in checklist_item['name']):
-                    part_found = checklist_item['name']
-                    break
+                    part_found.append(checklist_item['name'].replace("Part No.", ''))
             
     
             to_json['Checklist'].append(obj['name'])
-            to_json['Part No.'].append('N/A' if not part_found else part_found)
+            to_json['Part No.'].append('N/A' if not part_found else ''.join([f'[{s}], ' if i < len(part_found) - 1 else f'[{s}]' for i, s in enumerate(part_found)]))
 
         break
 
@@ -81,7 +80,7 @@ def create_spreadsheet(board_id, job_no, filename):
 
     writer.close()
 
-
+    subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
 
 
 if __name__ == "__main__":
@@ -89,32 +88,29 @@ if __name__ == "__main__":
         board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_LIST)
 
         create_spreadsheet(board_id=FIT_OUT_BOARD, job_no=widget.get(), filename="/output/" + widget.get() + ".xlsx")
-        for child in all_children(m):
-            if type(child) == tkinter.Text:
-                child.destroy()
+        # for child in all_children(m):
+        #     if type(child) == tkinter.Text:
+        #         child.destroy()
 
-        for card in board:
-            card_id = card['id']
-            job_no = card["name"].split('-')[0].replace('#','').strip()
+        # for card in board:
+        #     card_id = card['id']
+        #     job_no = card["name"].split('-')[0].replace('#','').strip()
 
-            if (job_no==widget.get()):
+        #     if (job_no==widget.get()):
                 
-                checklists = import_checklist(card_id)
+        #         checklists = import_checklist(card_id)
 
-                name = tkinter.Text(m)
-                name.insert("1.0", card["name"])
-                name.grid(row=3, column=1)
-                fit_text_to_widget(name)
+        #         name = tkinter.Text(m)
+        #         name.insert("1.0", card["name"])
+        #         name.grid(row=3, column=1)
+        #         fit_text_to_widget(name)
 
-                for obj in checklists:
-                    text = tkinter.Text(m, wrap="word")
-                    text.insert('1.0', obj['name'].strip())
-                    text.grid(row=4+checklists.index(obj), column=1)
-                    fit_text_to_widget(text)
+        #         for obj in checklists:
+        #             text = tkinter.Text(m, wrap="word")
+        #             text.insert('1.0', obj['name'].strip())
+        #             text.grid(row=4+checklists.index(obj), column=1)
+        #             fit_text_to_widget(text)
                  
-
-
-
     m = tkinter.Tk()
     m.config(bg="black")
     
