@@ -116,38 +116,10 @@ def create_spreadsheet(board_id, job_no, filename):
 
 if __name__ == "__main__":
     def search_card(widget):
-        # board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_LIST)
-
-        label = tkinter.Label(m, text="Searching...")
-        label.grid(row=4, column=1)
-        label.config(bg="green")
-
         thread = Thread(target=create_spreadsheet, args=(FIT_OUT_BOARD, widget.get(), "/output/" + widget.get() + ".xlsx"))
         thread.start()
+
    
-        # label.destroy()
-        # for child in all_children(m):
-        #     if type(child) == tkinter.Text:
-        #         child.destroy()
-
-        # for card in board:
-        #     card_id = card['id']
-        #     job_no = card["name"].split('-')[0].replace('#','').strip()
-
-        #     if (job_no==widget.get()):
-                
-        #         checklists = import_checklist(card_id)
-
-        #         name = tkinter.Text(m)
-        #         name.insert("1.0", card["name"])
-        #         name.grid(row=3, column=1)
-        #         fit_text_to_widget(name)
-
-        #         for obj in checklists:
-        #             text = tkinter.Text(m, wrap="word")
-        #             text.insert('1.0', obj['name'].strip())
-        #             text.grid(row=4+checklists.index(obj), column=1)
-        #             fit_text_to_widget(text)
                  
     m = tkinter.Tk()
     m.config(bg="black")
