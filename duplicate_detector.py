@@ -4,9 +4,10 @@ import os
 import pandas as pd
 from variables import *
 import emailer
-import schedule
 import time
 import gc
+import tkinter
+from threading import *
 
 headers = {
   "Accept": "application/json"
@@ -84,10 +85,23 @@ def run_task():
 
 if __name__ == "__main__":
     
-    run_task()
-    # schedule.every(120).minutes.do(run_task)
+    def button():
+       print("hi")
+                 
+    m = tkinter.Tk()
+    m.config(bg="black")
+    
+    m.minsize(384, 384)
+    m.columnconfigure(1, weight=1)
 
-    # while True:
-    #    schedule.run_pending()
-    #    time.sleep(1)
+    tkinter.Label(m, text='Job No.').grid(row=0, column=1)
+
+    e1 = tkinter.Entry(m)
+    e1.grid(row=1, column=1)
+
+    start_button = tkinter.Button(m, text="Get Card Details", command=button)
+    start_button.grid(row=2, column=1)
+
+    m.mainloop()
+
 

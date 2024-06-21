@@ -118,8 +118,6 @@ if __name__ == "__main__":
     def search_card(widget):
         thread = Thread(target=create_spreadsheet, args=(FIT_OUT_BOARD, widget.get(), "/output/" + widget.get() + ".xlsx"))
         thread.start()
-
-   
                  
     m = tkinter.Tk()
     m.config(bg="black")
