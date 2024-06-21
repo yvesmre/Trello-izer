@@ -106,11 +106,11 @@ if __name__ == "__main__":
     
             def remove_list(event):
                 delete_list(card_data['id'], discrepancy[entry]['trello table'][event.widget.get("1.0",'end-1c')])
-                run_discrepancy_lookup()
+                # run_discrepancy_lookup()
 
             def build_list(event):
                 create_list(card_data['id'], event.widget.get("1.0",'end-1c'), BUILD_CHECKLIST_TEMPLATE)
-                run_discrepancy_lookup()
+                # run_discrepancy_lookup()
 
             def callback(event):
                 global editing
