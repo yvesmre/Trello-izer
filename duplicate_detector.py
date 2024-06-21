@@ -1,11 +1,8 @@
 import requests
 import json
-import os
 import pandas as pd
 from variables import *
 import emailer
-import time
-import gc
 import tkinter
 from threading import *
 

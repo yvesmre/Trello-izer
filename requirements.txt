@@ -38,7 +38,6 @@ pytz==2024.1
 referencing==0.35.1
 requests==2.31.0
 rpds-py==0.18.1
-schedule==1.2.1
 six==1.16.0
 styleframe==4.2
 typing_extensions==4.12.0
