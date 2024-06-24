@@ -163,8 +163,8 @@ def make_card(job_no):
         checklists = import_checklist(fit_out_card_id)
         
         # Template Cards may come with Template Lists, disregard and delete. 
-        for checklist in checklists:
-            delete_list(fit_out_card_id, checklist['id'])
+        # for checklist in checklists:
+        #     delete_list(fit_out_card_id, checklist['id'])
         
         try:
             fit_out_description = "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1] + '\n'
