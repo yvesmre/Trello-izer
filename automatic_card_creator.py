@@ -59,7 +59,6 @@ def cards_to_be_made(screen):
 
         myob = search_myob(order.job_number)
         if not myob:
-            # print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
             continue
 
         display = tkinter.Text(screen)
