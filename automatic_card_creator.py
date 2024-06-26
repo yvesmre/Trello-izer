@@ -188,7 +188,7 @@ def make_card(job_no):
     if DIFFERENT_DESTINATION_EXCEL:
         shutil.copyfile(EXCEL_SPREADSHEET_READ, EXCEL_SPREADSHEET_WRITE)
 
-    update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates)
+    update_row(EXCEL_SPREADSHEET_WRITE if DIFFERENT_DESTINATION_EXCEL else EXCEL_SPREADSHEET_READ, updates) if WRITE_TO_EXCEL else None
 
     print("Run Done, made ", len(updates), " cards")
         
