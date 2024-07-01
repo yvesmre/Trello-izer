@@ -38,9 +38,15 @@ def create_spreadsheet(board_id, job_no, filename):
 
     board = import_cards_with_custom_fields_from_board(board_id)
 
-    to_json = {"Checklist": [], 
+    to_json = {
+        "Item": [], 
+               "Checklist": [], 
                 'Part No.': []
                     }
+
+
+    customer = ""
+    index = 1
 
     user_to_name = {}
     for card in board:
@@ -48,19 +54,24 @@ def create_spreadsheet(board_id, job_no, filename):
 
         card_name = card['name']
         if not (card_name.split('-')[0].replace('#', '').strip() == job_no): continue
-
+        customer = card_name.split('-')[1].strip()
         for obj in checklists:
 
             part_found = []
             for checklist_item in obj["checkItems"]:
                 if("Part No." in checklist_item['name']):
+                    to_json['Item'].append(int(index))
                     to_json['Checklist'].append(obj['name'])
                     to_json['Part No.'].append(checklist_item['name'].replace("Part No.", ''))
                     part_found.append(checklist_item['name'].replace("Part No.", ''))
+
             if not part_found: 
+
+                to_json['Item'].append(int(index))
                 to_json['Checklist'].append(obj['name'])
                 to_json['Part No.'].append('N/A' if not part_found else ''.join([f'[{s}], ' if i < len(part_found) - 1 else f'[{s}]' for i, s in enumerate(part_found)]))
-
+            
+            index = index + 1
         break
 
     frame = pd.DataFrame(data=to_json)
@@ -71,26 +82,17 @@ def create_spreadsheet(board_id, job_no, filename):
     writer = ExcelWriter(os.getcwd() + filename, if_sheet_exists="overlay", mode='a', engine="openpyxl")
     
 
-
-    #   sf.set_column_width(columns='Card Title', width=25)
-    # sf.set_column_width(columns='Checklist', width=70)
-    # sf.set_column_width(columns='Part No.', width=50)
-    #   sf.set_column_width(columns='Member', width=25)
-    #   sf.set_column_width(columns='Card Last Modified', width=20)
-    #   sf.set_column_width(columns='Completion', width=20)
-
-    frame.to_excel(excel_writer=writer,index=True, startrow=5, startcol=1, header=False)
+    frame.to_excel(excel_writer=writer,index=False, startrow=5, startcol=1, header=False)
 
     writer.close()
 
     wb = load_workbook(os.getcwd()+ filename)
     ws = wb.active
 
-    # # # Insert blank rows at the top
-    # # ws.insert_rows(1, 2)
 
-    ws.cell(row=1, column=3, value=str(job_no)).font = Font(size = 27, bold=True)
-    # # ws.cell(row=2, column=1, value="JOB CARD: " + card_name).font = Font(size = 24, bold=True, underline='single')
+    ws.cell(row=1, column=3, value=int(job_no)).font = Font(size = 27, bold=True)
+    ws.cell(row=2, column=5, value=customer)
+    # # # ws.cell(row=2, column=1, value="JOB CARD: " + card_name).font = Font(size = 24, bold=True, underline='single')
     
     merge_start = 5
 
@@ -100,9 +102,21 @@ def create_spreadsheet(board_id, job_no, filename):
                 ws.merge_cells(start_row=merge_start, start_column=3, end_row=row-1, end_column=3)
             merge_start = row
 
-    # Handle the last merge range in the first column
+    
     if merge_start < ws.max_row:
         ws.merge_cells(start_row=merge_start, start_column=3, end_row=ws.max_row, end_column=3)
+
+        merge_start = 5
+    
+    merge_start_2 = 5
+    for row in range(5, ws.max_row + 1):
+        if ws.cell(row=row, column=2).value != ws.cell(row=row-1, column=2).value:
+            if merge_start_2 < row - 1:
+                ws.merge_cells(start_row=merge_start_2, start_column=2, end_row=row-1, end_column=2)
+            merge_start_2 = row
+
+    if merge_start_2 < ws.max_row:
+        ws.merge_cells(start_row=merge_start_2, start_column=2, end_row=ws.max_row, end_column=2)
 
     for row in ws.iter_rows(min_row=5, max_row=ws.max_row, min_col=3, max_col=3):
         for cell in row:
