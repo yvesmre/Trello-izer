@@ -49,10 +49,12 @@ def create_spreadsheet(board_id, job_no, filename):
     index = 1
 
     user_to_name = {}
+    desc = ""
     for card in board:
         checklists = import_checklist(card['id'])
 
         card_name = card['name']
+        desc = card['desc']
         if not (card_name.split('-')[0].replace('#', '').strip() == job_no): continue
         customer = card_name.split('-')[1].strip()
         for obj in checklists:
@@ -90,9 +92,13 @@ def create_spreadsheet(board_id, job_no, filename):
     ws = wb.active
 
 
+    dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
+    contact = desc.split('Contact:')[1].strip().split('#')[0].strip()
+
     ws.cell(row=1, column=3, value=int(job_no)).font = Font(size = 27, bold=True)
     ws.cell(row=2, column=5, value=customer)
-    # # # ws.cell(row=2, column=1, value="JOB CARD: " + card_name).font = Font(size = 24, bold=True, underline='single')
+    ws.cell(row=3, column=5, value=dealer)
+    ws.cell(row=4, column=5, value=contact)
     
     merge_start = 5
 
