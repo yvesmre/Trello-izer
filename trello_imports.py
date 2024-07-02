@@ -109,6 +109,46 @@ def import_card(card):
 
     return json.loads(response.text)
 
+def get_custom_field(custom_field):
+
+  url = "https://api.trello.com/1/customFields/" + custom_field
+
+  headers = {
+    "Accept": "application/json"
+  }
+
+  query = {
+    'key': API_KEY,
+    'token': AUTH_TOKEN
+  }
+
+  response = requests.request(
+    "GET",
+    url,
+    headers=headers,
+    params=query
+  )
+
+  return json.loads(response.text)
+
+
+def import_custom_field_option(custom_field, option):
+
+  url = "https://api.trello.com/1/customFields/" + custom_field+ "/options/" + option
+
+  query = {
+    'key': API_KEY,
+    'token': AUTH_TOKEN
+  }
+
+  response = requests.request(
+    "GET",
+    url,
+    params=query
+  )
+
+  return json.loads(response.text)
+
 def create_excel_file(board_id, filename):
 
   #Hacky way of going about this, tbh

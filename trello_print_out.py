@@ -50,6 +50,8 @@ def create_spreadsheet(board_id, job_no, filename):
 
     user_to_name = {}
     desc = ""
+
+    custom_fields = None
     for card in board:
         checklists = import_checklist(card['id'])
 
@@ -57,6 +59,8 @@ def create_spreadsheet(board_id, job_no, filename):
         desc = card['desc']
         if not (card_name.split('-')[0].replace('#', '').strip() == job_no): continue
         customer = card_name.split('-', 1)[1].strip()
+
+        custom_fields = card['customFieldItems'] if 'customFieldItems' in card else None
         for obj in checklists:
 
             part_found = []
@@ -90,6 +94,9 @@ def create_spreadsheet(board_id, job_no, filename):
     wb = load_workbook(os.getcwd()+ filename)
     ws = wb.active
 
+    manufacturer = 'N/A'
+    model = 'N/A'
+    vin = 'N/A'
 
     dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
     contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
@@ -98,10 +105,24 @@ def create_spreadsheet(board_id, job_no, filename):
         desc = desc.split('##')[1].replace("**",'').strip()
         manufacturer = desc.split(' ')[0]
         model = desc.split(' ', 1)[1].split("#")[0]
-        vin = desc.split('#')[1]
-        ws.cell(row=2, column=3, value=manufacturer)
-        ws.cell(row=3, column=3, value=model)
-        ws.cell(row=4, column=3, value=vin if vin else 'N/A')
+        vin = '#' + desc.split('#')[1]
+    elif(not custom_fields == None):
+        for field in custom_fields:
+            custom_field =get_custom_field(field['idCustomField'])
+            
+
+            if(custom_field['name'] == "MANUFACTURER"):
+                manufacturer = import_custom_field_option(field['idCustomField'], field['idValue'])['value']['text']
+
+            if(custom_field['name'] == "TRUCK MODEL"):
+                model = field['value']['text']
+            
+            if(custom_field['name'] == 'CHASSIS VIN NO.'):
+                vin = field['value']['text']
+
+    ws.cell(row=2, column=3, value=manufacturer)
+    ws.cell(row=3, column=3, value=model)
+    ws.cell(row=4, column=3, value=vin)
 
     ws.cell(row=1, column=3, value=int(job_no)).font = Font(size = 27, bold=True)
     ws.cell(row=2, column=5, value=customer)
