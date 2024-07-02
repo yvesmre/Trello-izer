@@ -79,7 +79,6 @@ def create_spreadsheet(board_id, job_no, filename):
     frame = pd.DataFrame(data=to_json)
     frame.index  = frame.index + 1
 
-    # frame.drop_duplicates()
     shutil.copyfile(os.getcwd() + "/Build Sheet Trello Template.xlsx", os.getcwd() + filename)
     writer = ExcelWriter(os.getcwd() + filename, if_sheet_exists="overlay", mode='a', engine="openpyxl")
     
@@ -93,7 +92,7 @@ def create_spreadsheet(board_id, job_no, filename):
 
 
     dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
-    contact = desc.split('Contact:')[1].strip().split('#')[0].strip()
+    contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
 
     if "##" in desc:
         desc = desc.split('##')[1].replace("**",'').strip()
