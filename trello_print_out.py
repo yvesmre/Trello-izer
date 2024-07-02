@@ -108,9 +108,8 @@ def create_spreadsheet(board_id, job_no, filename):
         vin = '#' + desc.split('#')[1]
     elif(not custom_fields == None):
         for field in custom_fields:
-            custom_field =get_custom_field(field['idCustomField'])
+            custom_field =import_custom_field(field['idCustomField'])
             
-
             if(custom_field['name'] == "MANUFACTURER"):
                 manufacturer = import_custom_field_option(field['idCustomField'], field['idValue'])['value']['text']
 

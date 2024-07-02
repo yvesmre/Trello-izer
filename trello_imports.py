@@ -109,7 +109,7 @@ def import_card(card):
 
     return json.loads(response.text)
 
-def get_custom_field(custom_field):
+def import_custom_field(custom_field):
 
   url = "https://api.trello.com/1/customFields/" + custom_field
 
