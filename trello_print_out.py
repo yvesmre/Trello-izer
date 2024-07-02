@@ -56,7 +56,7 @@ def create_spreadsheet(board_id, job_no, filename):
         card_name = card['name']
         desc = card['desc']
         if not (card_name.split('-')[0].replace('#', '').strip() == job_no): continue
-        customer = card_name.split('-')[1].strip()
+        customer = card_name.split('-', 1)[1].strip()
         for obj in checklists:
 
             part_found = []
@@ -97,7 +97,7 @@ def create_spreadsheet(board_id, job_no, filename):
     if "##" in desc:
         desc = desc.split('##')[1].replace("**",'').strip()
         manufacturer = desc.split(' ')[0]
-        model = desc.split(' ')[1]
+        model = desc.split(' ', 1)[1].split("#")[0]
         vin = desc.split('#')[1]
         ws.cell(row=2, column=3, value=manufacturer)
         ws.cell(row=3, column=3, value=model)
