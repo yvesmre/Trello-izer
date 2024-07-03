@@ -62,28 +62,85 @@ def look_for_duplicates(board, name):
               seen.append(job_no.strip())
           else: duplicates.append(job_no.strip())
 
-  if(len(duplicates) > 0):
-    body = "<b size=40px> Duplicate Cards: </b>"
 
-    for duplicate in duplicates:
-       body = body + "<li>" + duplicate + "</li>"
-    print("Duplicates in: " + name + " Board, sending email")
-    emailer.send_email(EMAIL_RECEIVER, "Duplicates Found in Board:" + name, body)
-  else:
-     print("No duplicates found in the provided board!")
+  return duplicates
+  # if(len(duplicates) > 0):
+  #   body = "<b size=40px> Duplicate Cards: </b>"
+
+  #   for duplicate in duplicates:
+  #      body = body + "<li>" + duplicate + "</li>"
+  #   print("Duplicates in: " + name + " Board, sending email")
+  #   emailer.send_email(EMAIL_RECEIVER, "Duplicates Found in Board:" + name, body)
+  # else:
+  #    print("No duplicates found in the provided board!")
 
 
+def all_children (wid) :
+    _list = wid.winfo_children()
+
+    for item in _list :
+        if item.winfo_children() :
+            _list.extend(item.winfo_children())
+
+    return _list
+
+def fit_text_to_widget(text_widget):
+    # Get the number of lines and the longest line's length
+    num_lines = int(text_widget.index('end-1c').split('.')[0])
+    longest_line_length = max(len(line) for line in text_widget.get("1.0", "end-1c").split('\n'))
+
+    # Calculate the widget's required height and width
+    height = int(int(longest_line_length/(512/8))*2.5)
+    width = int(min(longest_line_length, 512/8))
+
+    # Resize the widget to fit the text
+    text_widget.config(width=width, height=height)
+
+                  
 
 
-def run_task():
-  look_for_duplicates(FIT_OUT_BOARD, "Fit Out")
-  look_for_duplicates(DRAFTING_BOARD, "Drafting")
-  # gc.collect()
 
 if __name__ == "__main__":
     
+
+    def run_task():
+      children = all_children(m)
+
+      for child in children:
+          if type(child) == tkinter.Text:
+              child.destroy()
+          if(type(child) ==tkinter.Label):
+                  child.destroy()
+
+      drafting_dupes = look_for_duplicates(DRAFTING_BOARD, "Drafting")
+      fit_out_dupes = look_for_duplicates(FIT_OUT_BOARD, "Fit Out")
+
+      draft_header = tkinter.Text(m, wrap="word")
+      draft_header.insert('1.0', "Drafting Duplicates")
+      draft_header.grid(row=2, column = 0)
+      fit_text_to_widget(draft_header)
+      for i in range(len(drafting_dupes)):
+        text_entry = tkinter.Text(m, wrap="word")
+        text_entry.insert('1.0', drafting_dupes[i])
+        text_entry.config(bg='gray30', fg="white")
+        text_entry.grid(row=i+3, column=0)
+        text_entry.config(state="disabled")
+        fit_text_to_widget(text_entry)
+
+      fit_out_header = tkinter.Text(m, wrap="word")
+      fit_out_header.insert('1.0', "Drafting Duplicates")
+      fit_out_header.grid(row=2, column = 2)
+      fit_text_to_widget(fit_out_header)
+      for i in range(len(fit_out_dupes)):
+        text_entry = tkinter.Text(m, wrap="word")
+        text_entry.insert('1.0', fit_out_dupes[i])
+        text_entry.config(bg='gray30', fg="white")
+        text_entry.grid(row=i+3, column=2)
+        text_entry.config(state="disabled")
+        fit_text_to_widget(text_entry)
+
     def button():
-       print("hi")
+      Thread(target=run_task).start()
                  
     m = tkinter.Tk()
     m.config(bg="black")
@@ -91,13 +148,9 @@ if __name__ == "__main__":
     m.minsize(384, 384)
     m.columnconfigure(1, weight=1)
 
-    tkinter.Label(m, text='Job No.').grid(row=0, column=1)
 
-    e1 = tkinter.Entry(m)
-    e1.grid(row=1, column=1)
-
-    start_button = tkinter.Button(m, text="Get Card Details", command=button)
-    start_button.grid(row=2, column=1)
+    start_button = tkinter.Button(m, text="Get Card Details", command=button, height=4, width=16)
+    start_button.grid(row=1, column=1)
 
     m.mainloop()
 
