@@ -49,7 +49,7 @@ def look_for_duplicates(board, name):
    headers=headers,
    params=query
   ) 
-
+  
   JSON_response = json.loads(response.text)
 
   seen = []
@@ -97,6 +97,11 @@ if __name__ == "__main__":
           if(type(child) ==tkinter.Label):
                   child.destroy()
 
+
+      search_indicator = tkinter.Label(m, text="Searching...")
+      search_indicator.config(bg="green")
+      search_indicator.grid(row=2,column=1)
+
       drafting_dupes = look_for_duplicates(DRAFTING_BOARD, "Drafting")
       fit_out_dupes = look_for_duplicates(FIT_OUT_BOARD, "Fit Out")
 
@@ -123,6 +128,8 @@ if __name__ == "__main__":
         text_entry.grid(row=i+3, column=2)
         text_entry.config(state="disabled")
         fit_text_to_widget(text_entry)
+
+      search_indicator.destroy()
 
     def button():
       Thread(target=run_task).start()
