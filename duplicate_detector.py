@@ -113,7 +113,7 @@ if __name__ == "__main__":
         fit_text_to_widget(text_entry)
 
       fit_out_header = tkinter.Text(m, wrap="word")
-      fit_out_header.insert('1.0', "Drafting Duplicates")
+      fit_out_header.insert('1.0', "Fit Out Duplicates")
       fit_out_header.grid(row=2, column = 2)
       fit_text_to_widget(fit_out_header)
       for i in range(len(fit_out_dupes)):
