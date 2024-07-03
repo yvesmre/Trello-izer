@@ -134,7 +134,7 @@ if __name__ == "__main__":
     m.columnconfigure(1, weight=1)
 
 
-    start_button = tkinter.Button(m, text="Get Card Details", command=button, height=4, width=16)
+    start_button = tkinter.Button(m, text="Look for Duplicates", command=button, height=4, width=16)
     start_button.grid(row=1, column=1)
 
     m.mainloop()
