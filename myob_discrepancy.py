@@ -77,7 +77,7 @@ if __name__ == "__main__":
         longest_line_length = max(len(line) for line in text_widget.get("1.0", "end-1c").split('\n'))
 
         # Calculate the widget's required height and width
-        height = int(int(longest_line_length/(512/8))*2)
+        height = int(int(longest_line_length/(512/8))*2.5)
         width = int(min(longest_line_length, 512/8))
 
         # Resize the widget to fit the text
