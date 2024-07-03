@@ -63,16 +63,6 @@ def look_for_duplicates(board, name):
 
 
   return duplicates
-  # if(len(duplicates) > 0):
-  #   body = "<b size=40px> Duplicate Cards: </b>"
-
-  #   for duplicate in duplicates:
-  #      body = body + "<li>" + duplicate + "</li>"
-  #   print("Duplicates in: " + name + " Board, sending email")
-  #   emailer.send_email(EMAIL_RECEIVER, "Duplicates Found in Board:" + name, body)
-  # else:
-  #    print("No duplicates found in the provided board!")
-
 
 def all_children (wid) :
     _list = wid.winfo_children()
@@ -94,10 +84,6 @@ def fit_text_to_widget(text_widget):
 
     # Resize the widget to fit the text
     text_widget.config(width=width, height=height)
-
-                  
-
-
 
 if __name__ == "__main__":
     

@@ -18,7 +18,6 @@ if not os.path.isfile('config.ini'):
                         }
     config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", "fit out to-do list": "", 'drafting to-do list': '', 'fit out job card template': '', 'drafting card template':"", 'fit out job checklist template': ''}
     config["FILE LOCATIONS"] = {"excel schedule read": '', "excel schedule write": ''}
-    # config['DUPLICATE DETECTOR SETTINGS'] = {"sender address" : '', 'sender credentials': '', 'receiver address': ''}
     config['TEST BOARD and LIST IDS'] = {'test list': '', 'test board': ''}
 
     configfile = open('config.ini', 'w')
@@ -42,11 +41,6 @@ EXCEL_SPREADSHEET_WRITE = config["FILE LOCATIONS"].get(option="excel schedule wr
 
 MYOB_API_KEY =  config["SECRETS"].get(option="myob api key", fallback="")
 MYOB_API_SECRET = config["SECRETS"].get(option="myob api secret", fallback="")
-
-# EMAIL_ADDRESS = config.get(section="DUPLICATE DETECTOR SETTINGS", option="sender address", fallback='')
-# EMAIL_CREDENTIALS = config.get(section="DUPLICATE DETECTOR SETTINGS", option="sender credentials", fallback='')
-# EMAIL_RECEIVER = config.get(section="DUPLICATE DETECTOR SETTINGS", option="receiver address", fallback='')
-
 
 FIT_OUT_BOARD = config['BOARD and LIST IDS'].get(option="fit out board", fallback="")
 DRAFTING_BOARD = config['BOARD and LIST IDS'].get(option="drafting board", fallback="")
