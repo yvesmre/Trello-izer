@@ -36,6 +36,10 @@ def create_spreadsheet(board_id, job_no, filename):
     if not os.path.exists(os.getcwd() + "/" + filename.split('/')[1]) :
         os.makedirs(os.getcwd() + "/" + filename.split('/')[1])
 
+    search_indicator = tkinter.Label(m, text="Searching...")
+    search_indicator.config(bg="green")
+    search_indicator.grid(row=3,column=1)
+
     board = import_cards_with_custom_fields_from_board(board_id)
 
     to_json = {
@@ -43,6 +47,8 @@ def create_spreadsheet(board_id, job_no, filename):
                "Checklist": [], 
                 'Part No.': []
                     }
+
+
 
 
     customer = ""
@@ -162,6 +168,7 @@ def create_spreadsheet(board_id, job_no, filename):
 
     #Linux compatibility begone!
     subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
+    search_indicator.destroy()
 
 
 if __name__ == "__main__":
