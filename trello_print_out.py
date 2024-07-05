@@ -7,6 +7,7 @@ from openpyxl.styles import Font
 import shutil
 from pandas import ExcelWriter
 from openpyxl.cell import MergedCell
+from variables import *
 
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
@@ -173,7 +174,7 @@ def create_spreadsheet(board_id, job_no, filename):
 
 if __name__ == "__main__":
     def search_card(widget):
-        thread = Thread(target=create_spreadsheet, args=(FIT_OUT_BOARD, widget.get(), "/output/" + widget.get() + ".xlsx"))
+        thread = Thread(target=create_spreadsheet, args=(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_BOARD, widget.get(), "/output/" + widget.get() + ".xlsx"))
         thread.start()
                  
     m = tkinter.Tk()
