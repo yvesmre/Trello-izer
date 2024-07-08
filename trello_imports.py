@@ -5,6 +5,7 @@ from import_myob_data import *
 import pandas as pd
 from styleframe import StyleFrame
 import datetime
+import os, subprocess, platform
 
 def import_cards_with_custom_fields_from_board(board):
   url = "https://api.trello.com/1/boards/" + board + "/cards"
@@ -86,7 +87,11 @@ def import_user(user):
     params=query
   )
 
-  return json.loads(response.text)
+  
+  try: 
+    return json.loads(response.text)
+  except:
+    return None
 
 def import_card(card):
     url = "https://api.trello.com/1/cards/" + card
@@ -175,10 +180,12 @@ def create_excel_file(board_id, filename):
         if type(checklist_item['idMember']) is str:
           if checklist_item['idMember'] not in user_to_name.keys():
             user = import_user(checklist_item['idMember'])
-            if 'fullName' in user:
+            if user and 'fullName' in user:
               member = user['fullName']
               user_to_name[checklist_item['idMember']] = member
               to_json['Member'].append(member)
+            else:
+              to_json['Member'].append('User not found')
           else:
             to_json['Member'].append(user_to_name[checklist_item['idMember']])
         else: to_json['Member'].append('')
@@ -199,5 +206,8 @@ def create_excel_file(board_id, filename):
 
 
   writer.close()
+
+  subprocess.call(['open', os.getcwd() + "/" + filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
+   
 
 
