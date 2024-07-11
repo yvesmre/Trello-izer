@@ -122,7 +122,7 @@ def make_card(job_no):
         for line in order.lines:
             create_list(fit_out_card_id, line, BUILD_CHECKLIST_TEMPLATE)
             task_card = create_card(FIT_OUT_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, line, "", FIT_OUT_BUILD_TEMPLATE)
-            create_attachment(fit_out_card_id,  task_card['url'])
+            create_attachment(fit_out_card_id,  task_card['shortUrl'])
             create_attachment(task_card['id'], fit_out_card_url)
        
 
