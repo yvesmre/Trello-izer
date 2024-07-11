@@ -101,8 +101,8 @@ def make_card(job_no):
         
         checklists = import_checklist(fit_out_card_id)
         
-        for checklist in checklists:
-            delete_list(fit_out_card_id, checklist['id'])
+        # for checklist in checklists:
+        #     delete_list(fit_out_card_id, checklist['id'])
         
         try:
             fit_out_description = "Dealer: "+ order.headers[1].split('-')[0] + "\nContact: " + order.headers[1].split('-')[1] + '\n'
@@ -120,7 +120,7 @@ def make_card(job_no):
         # create_attachment(fit_out_card_id, drafting_card["url"])
 
         for line in order.lines:
-            # create_list(fit_out_card_id, line, BUILD_CHECKLIST_TEMPLATE)
+            create_list(fit_out_card_id, line, BUILD_CHECKLIST_TEMPLATE)
             task_card = create_card(FIT_OUT_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, line, "", FIT_OUT_BUILD_TEMPLATE)
             create_attachment(fit_out_card_id,  task_card['url'])
             create_attachment(task_card['id'], fit_out_card_url)
