@@ -26,8 +26,11 @@ def import_cards_with_custom_fields_from_board(board):
     headers=headers,
     params=query
   )
-
-  return json.loads(response.text)
+  try:
+    return json.loads(response.text)
+  except:
+    print(response.text)
+    return None
 
 def import_checklist(card):  
   url = "https://api.trello.com/1/cards/" + card + "/checklists/"

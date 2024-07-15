@@ -28,14 +28,33 @@ def gather_attachments(card):
         list = []
 
         for attachment in JSON:
-            list.append(attachment['url'])
+            list.append(attachment['url'].split('/c/')[1])
 
         return list
     except:
         return response.text
 
+def gather_card_attachments(card):
+    attachments = gather_attachments(card)
+
+    child_cards = []
+
+    for attachment in attachments:
+        child_cards.append(import_card(attachment))
+
+    return child_cards
 
 
 
 
-print(gather_attachments('668f3f9f55e1d1dc64077cd4'))
+
+f = open(os.getcwd() + '/' + '668f75c9a0a530c3832a2cc9.json', mode='w' )
+
+card_checklist = {}
+
+for cards in gather_card_attachments('668f75c9a0a530c3832a2cc9'):
+    checklist = import_checklist(cards['id'])
+    json.dump(checklist, indent=4, fp=f)
+
+
+f.close()
