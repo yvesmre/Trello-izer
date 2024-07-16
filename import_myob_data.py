@@ -106,7 +106,12 @@ def import_myob():
     thread1.join()
 
   JSON = json.load(open("access_token.json"))
-  JSON = json.loads(refresh_token(JSON['refresh_token']))     
+
+  try:
+    JSON = json.loads(refresh_token(JSON['refresh_token'])) 
+  except:
+      os.remove('access_token.json')
+      import_myob()    
 
   write_to_json("access_token.json", JSON)
 
