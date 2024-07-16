@@ -111,7 +111,8 @@ def import_myob():
     JSON = json.loads(refresh_token(JSON['refresh_token'])) 
   except:
       os.remove('access_token.json')
-      import_myob()    
+      import_myob()
+      return   
 
   write_to_json("access_token.json", JSON)
 
