@@ -211,7 +211,7 @@ def create_spreadsheet(board_id, job_no, filename):
     wb.save(os.getcwd()+ filename)
 
     #Linux compatibility begone!
-    subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
+    # subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
 
 
 
