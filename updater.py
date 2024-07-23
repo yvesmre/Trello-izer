@@ -54,7 +54,8 @@ card_checklist = {}
 
 for cards in gather_card_attachments('668f75c9a0a530c3832a2cc9'):
     checklist = import_checklist(cards['id'])
-    json.dump(checklist, indent=4, fp=f)
+    for checkbox in checklist:
+        json.dump(checkbox['checkItems']['state'], indent=4, fp=f)
 
 
 f.close()
