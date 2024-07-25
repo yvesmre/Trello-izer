@@ -46,16 +46,22 @@ def gather_card_attachments(card):
 
 
 
+def retrieve_child_completion(card):
+    f = open(os.getcwd() + '/' + card + '/.json', mode='w' )
 
+    card_checklist = {}
 
-f = open(os.getcwd() + '/' + '668f75c9a0a530c3832a2cc9.json', mode='w' )
+    total = 0
+    complete = 0
 
-card_checklist = {}
+    for cards in gather_card_attachments(card):
+        checklist = import_checklist(cards['id'])
+        for checkbox in checklist:
+            for check_item in checkbox['checkItems']:
+                total = total + 1
+                json.dump(check_item, indent=4, fp=f)
+                if check_item['state'] == 'complete':
+                    complete = complete + 1
+    f.close()
 
-for cards in gather_card_attachments('668f75c9a0a530c3832a2cc9'):
-    checklist = import_checklist(cards['id'])
-    for checkbox in checklist:
-        json.dump(checkbox['checkItems']['state'], indent=4, fp=f)
-
-
-f.close()
+    return total, complete
