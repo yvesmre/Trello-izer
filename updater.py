@@ -65,3 +65,6 @@ def retrieve_child_completion(card):
     f.close()
 
     return total, complete
+
+
+print(json.dumps(import_card('66a30ddd57ab65476ce164be'), indent=4))
