@@ -67,4 +67,4 @@ def retrieve_child_completion(card):
     return total, complete
 
 
-print(json.dumps(import_card('66a30ddd57ab65476ce164be'), indent=4))
+print(json.dumps(get_desc('66a30ddd57ab65476ce164be'), indent=4))

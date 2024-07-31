@@ -117,6 +117,10 @@ def import_card(card):
 
     return json.loads(response.text)
 
+def get_desc(card):
+  return import_card(card)['desc']
+
+
 def import_custom_field(custom_field):
 
   url = "https://api.trello.com/1/customFields/" + custom_field
