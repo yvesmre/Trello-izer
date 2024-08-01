@@ -1,4 +1,5 @@
 from trello_imports import *
+from trello_exports import *
 import requests
 import json
 
@@ -47,7 +48,7 @@ def gather_card_attachments(card):
 
 
 def retrieve_child_completion(card):
-    f = open(os.getcwd() + '/' + card + '/.json', mode='w' )
+    # f = open(os.getcwd() + '/' + card + '.json', mode='w' )
 
     card_checklist = {}
 
@@ -59,12 +60,12 @@ def retrieve_child_completion(card):
         for checkbox in checklist:
             for check_item in checkbox['checkItems']:
                 total = total + 1
-                json.dump(check_item, indent=4, fp=f)
+                # json.dump(check_item, indent=4, fp=f)
                 if check_item['state'] == 'complete':
                     complete = complete + 1
-    f.close()
+    # f.close()
 
     return total, complete
 
-
-print(json.dumps(get_desc('66a30ddd57ab65476ce164be'), indent=4))
+total, complete = retrieve_child_completion('66a30ddd57ab65476ce164be')
+update_card('66a30ddd57ab65476ce164be', get_desc('66a30ddd57ab65476ce164be') + "\n\n ## Completed: " + str(complete/total * 100) + "%")
