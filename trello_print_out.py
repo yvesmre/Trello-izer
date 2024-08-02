@@ -108,24 +108,27 @@ def create_spreadsheet(board_id, job_no, filename):
     dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
     contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
 
-    if "##" in desc:
-        desc = desc.split('##')[1].replace("**",'').strip()
-        manufacturer = desc.split(' ')[0]
-        model = desc.split(' ', 1)[1].split("#")[0]
-        vin = '#' + desc.split('#')[1]
-    elif(not custom_fields == None):
-        for field in custom_fields:
-            custom_field =import_custom_field(field['idCustomField'])
-            
-            if(custom_field['name'] == "MANUFACTURER"):
-                manufacturer = import_custom_field_option(field['idCustomField'], field['idValue'])['value']['text']
+    try: 
+        if "##" in desc:
+            desc = desc.split('##')[1].replace("**",'').strip()
+            manufacturer = desc.split(' ')[0]
+            model = desc.split(' ', 1)[1].split("#")[0]
+            vin = '#' + desc.split('#')[1]
+        elif(not custom_fields == None):
+            for field in custom_fields:
+                custom_field =import_custom_field(field['idCustomField'])
+                
+                if(custom_field['name'] == "MANUFACTURER"):
+                    manufacturer = import_custom_field_option(field['idCustomField'], field['idValue'])['value']['text']
 
-            if(custom_field['name'] == "TRUCK MODEL"):
-                model = field['value']['text']
-            
-            if(custom_field['name'] == 'CHASSIS VIN NO.'):
-                vin = field['value']['text']
+                if(custom_field['name'] == "TRUCK MODEL"):
+                    model = field['value']['text']
+                
+                if(custom_field['name'] == 'CHASSIS VIN NO.'):
+                    vin = field['value']['text']
+    except: None
 
+    
     ws.cell(row=2, column=3, value=manufacturer)
     ws.cell(row=3, column=3, value=model)
     ws.cell(row=4, column=3, value=vin)
