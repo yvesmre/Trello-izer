@@ -67,5 +67,22 @@ def retrieve_child_completion(card):
 
     return total, complete
 
-total, complete = retrieve_child_completion('66a30ddd57ab65476ce164be')
-update_card('66a30ddd57ab65476ce164be', get_desc('66a30ddd57ab65476ce164be') + "\n\n ## Completed: " + str(complete/total * 100) + "%")
+# total, complete = retrieve_child_completion('66a30ddd57ab65476ce164be')
+# update_card('66a30ddd57ab65476ce164be', get_desc('66a30ddd57ab65476ce164be') + "\n\n ## Completed: " + str(complete/total * 100) + "%")
+
+
+def update_parent_cards():
+    board = import_cards_with_custom_fields_from_board(TEST_BOARD)
+
+    cards = []
+    for card in board:
+
+        card_name = card['name']
+        desc = card['desc']
+        if not (card_name.split('-')[0].replace('#', '').strip().isnumeric()): continue
+        
+        total, complete = retrieve_child_completion(card['id'])
+        update_card(card['id'], get_desc(card['id']) + "\n\n ## Completed: " + str(complete/total * 100) + "%")
+
+
+update_parent_cards()
