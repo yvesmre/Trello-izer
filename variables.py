@@ -16,7 +16,7 @@ if not os.path.isfile('config.ini'):
                         "trello auth token": '',
                         'trello api key':''
                         }
-    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", "fit out to-do list": "", 'drafting to-do list': '', 'fit out job card template': '', 'drafting card template':"", 'fit out job checklist template': ''}
+    config['BOARD and LIST IDS'] = {"fit out board": '', "drafting board": "", "fit out to-do list": "", 'drafting to-do list': '', 'fit out job card template': '', 'drafting card template':"", 'fit out job checklist template': '', 'boards to search': ''}
     config["FILE LOCATIONS"] = {"excel schedule read": '', "excel schedule write": ''}
     config['TEST BOARD and LIST IDS'] = {'test list': '', 'test board': ''}
 
@@ -45,6 +45,8 @@ MYOB_API_SECRET = config["SECRETS"].get(option="myob api secret", fallback="")
 FIT_OUT_BOARD = config['BOARD and LIST IDS'].get(option="fit out board", fallback="")
 DRAFTING_BOARD = config['BOARD and LIST IDS'].get(option="drafting board", fallback="")
 
+BOARDS_TO_SEARCH = config['BOARD and LIST IDS'].get(option="boards to search", fallback="").replace(' ', '').split(',')
+
 FIT_OUT_TODO_LIST = config['BOARD and LIST IDS'].get(option="fit out to-do list", fallback="")
 DRAFTING_TODO_LIST = config['BOARD and LIST IDS'].get(option="drafting to-do list", fallback="")
 
@@ -54,4 +56,3 @@ BUILD_CHECKLIST_TEMPLATE = config['BOARD and LIST IDS'].get(option='fit out job 
 
 TEST_LIST = config.get(section='TEST BOARD and LIST IDS',option='test list', fallback="")
 TEST_BOARD = config.get(section='TEST BOARD and LIST IDS', option='test board', fallback="")
-
