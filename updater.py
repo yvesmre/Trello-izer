@@ -57,6 +57,7 @@ def retrieve_child_completion(card):
 
     for cards in gather_card_attachments(card):
         checklist = import_checklist(cards['id'])
+        if('DRAFTING' in cards['name']): continue
         for checkbox in checklist:
             for check_item in checkbox['checkItems']:
                 total = total + 1
@@ -66,9 +67,6 @@ def retrieve_child_completion(card):
     # f.close()
 
     return total, complete
-
-# total, complete = retrieve_child_completion('66a30ddd57ab65476ce164be')
-# update_card('66a30ddd57ab65476ce164be', get_desc('66a30ddd57ab65476ce164be') + "\n\n ## Completed: " + str(complete/total * 100) + "%")
 
 
 def update_parent_cards():
