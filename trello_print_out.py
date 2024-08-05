@@ -42,7 +42,7 @@ def create_spreadsheet(board_id, job_no, filename):
     search_indicator.grid(row=3,column=1)
 
     board = import_cards_with_custom_fields_from_board(board_id)
-
+    board.extend(import_cards_with_custom_fields_from_board('66610dba9f8cdbbd9ebd714b'))
     to_json = {
         "Item": [], 
                "Checklist": [], 

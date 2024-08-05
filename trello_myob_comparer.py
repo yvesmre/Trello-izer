@@ -9,6 +9,7 @@ def look_for_discrepancy(job):
     import_myob()
 
     board = import_cards_with_custom_fields_from_board(FIT_OUT_BOARD if not USE_TESTING_LIST else TEST_BOARD)
+    board.extend(import_cards_with_custom_fields_from_board('66610dba9f8cdbbd9ebd714b'))
 
     json_out = None
     card_data = None
