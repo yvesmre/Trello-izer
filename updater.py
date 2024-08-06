@@ -2,7 +2,8 @@ from trello_imports import *
 from trello_exports import *
 import requests
 import json
-
+import tkinter
+from functools import partial
 
 query = {
 'key': API_KEY,
@@ -48,7 +49,6 @@ def gather_card_attachments(card):
 
 
 def retrieve_child_completion(card):
-    # f = open(os.getcwd() + '/' + card + '.json', mode='w' )
 
     card_checklist = {}
 
@@ -61,15 +61,21 @@ def retrieve_child_completion(card):
         for checkbox in checklist:
             for check_item in checkbox['checkItems']:
                 total = total + 1
-                # json.dump(check_item, indent=4, fp=f)
+
                 if check_item['state'] == 'complete':
                     complete = complete + 1
-    # f.close()
+
 
     return total, complete
 
 
 def update_parent_cards():
+
+
+    search_indicator = tkinter.Label(m, text="Updating...")
+    search_indicator.config(bg="green")
+    search_indicator.grid(row=4,column=1)
+
     board = import_cards_with_custom_fields_from_board(TEST_BOARD)
 
     cards = []
@@ -89,5 +95,23 @@ def update_parent_cards():
 
         update_card(card['id'], desc + "\n\n ## `Completed: " + str(complete/total * 100) + "%`")
 
+    search_indicator.destroy()
 
-update_parent_cards()
+
+
+if __name__ == "__main__":
+    def search_card():
+        thread = Thread(target=update_parent_cards)
+        thread.start()
+                 
+    m = tkinter.Tk()
+    m.config(bg="black")
+    
+    m.minsize(384, 384)
+    m.columnconfigure(1, weight=1)
+
+    start_button = tkinter.Button(m, text="Update cards", command=search_card, width=30, height=6)
+    start_button.grid(row=1, column=1)
+
+    m.mainloop()
+
