@@ -80,7 +80,14 @@ def update_parent_cards():
         if not (card_name.split('-')[0].replace('#', '').strip().isnumeric()): continue
         
         total, complete = retrieve_child_completion(card['id'])
-        update_card(card['id'], get_desc(card['id']) + "\n\n ## Completed: " + str(complete/total * 100) + "%")
+
+
+        desc = get_desc(card['id'])
+
+        if 'Completed: ' in desc:
+            desc = desc.split("\n\n ## `Completed:")[0]
+
+        update_card(card['id'], desc + "\n\n ## `Completed: " + str(complete/total * 100) + "%`")
 
 
 update_parent_cards()
