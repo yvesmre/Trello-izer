@@ -38,7 +38,7 @@ def parse_spreadsheets_for_orders(file):
 
     for index, row in spreadsheet.loc[:, keywords].iterrows():
         if (type(row["Job No."]) is int):
-            if((row['Quote Status'] == "Won" or row['Quote Status'] == "PO Pending") and type(row['Trello Card Created']) is not datetime.datetime):
+            if((row['Quote Status'] == "Won" or row['Quote Status'] == "PO Pending" or row['Quote Status'] == "Quoted") and type(row['Trello Card Created']) is not datetime.datetime):
                 if(row['Trello Card Created'].lower() != "n/a" and row['Trello Card Created'].lower() != "new"):
                         if(not row['Trello Card Created']):
                             if(type(row["Invoice Date"]) is str):
