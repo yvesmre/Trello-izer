@@ -11,9 +11,12 @@ def look_for_discrepancy(job):
 
     board = []
 
-    for s in BOARDS_TO_SEARCH:
-        board.extend(import_cards_with_custom_fields_from_board(s))
-        
+    if not USE_TESTING_LIST:
+        for s in BOARDS_TO_SEARCH:
+            board.extend(import_cards_with_custom_fields_from_board(s))
+    
+    board = import_cards_with_custom_fields_from_board(TEST_BOARD)
+            
 
     json_out = None
     card_data = None
@@ -26,7 +29,7 @@ def look_for_discrepancy(job):
         if(job_no == job):
             card_data=card
             json_out = {}
-            # checklists = import_checklist(card_id)
+            checklists = gather_card_attachments(card_id)
 
             
             myob_data =  search_myob(job_no)["Lines"] if search_myob(job_no) else None
@@ -39,9 +42,9 @@ def look_for_discrepancy(job):
                     if(not line["Type"] == "Header"): 
                         myob_lines.append(' '.join(line["Description"].split()))
 
-            # for obj in checklists:
-            #     trello_lines.append(obj['name'].strip())
-            #     trello_table[obj['name'].strip()] = obj['id']
+            for obj in checklists:
+                trello_lines.append(obj['name'].strip())
+                trello_table[obj['name'].strip()] = obj['id']
 
 
             myob_discrepancies = []
