@@ -5,48 +5,6 @@ import json
 import tkinter
 from functools import partial
 
-query = {
-'key': API_KEY,
-'token': AUTH_TOKEN
-}
-
-def gather_attachments(card):
-
-    url = "https://api.trello.com/1/cards/" + card + "/attachments"
-
-    headers = {
-    "Accept": "application/json"
-    }
-
-    response = requests.request(
-    "GET",
-    url,
-    headers=headers,
-    params=query
-    )
-
-    try: 
-        JSON = json.loads(response.text)
-        list = []
-
-        for attachment in JSON:
-            list.append(attachment['url'].split('/c/')[1])
-
-        return list
-    except:
-        return response.text
-
-def gather_card_attachments(card):
-    attachments = gather_attachments(card)
-
-    child_cards = []
-
-    for attachment in attachments:
-        child_cards.append(import_card(attachment))
-
-    return child_cards
-
-
 
 def retrieve_child_completion(card):
 
