@@ -113,11 +113,11 @@ if __name__ == "__main__":
             
             discrepancy, card_data = look_for_discrepancy(entry)
     
-            def remove_list(event):
+            def remove_list(event): #TODO: This has to be edited
                 delete_list(card_data['id'], discrepancy[entry]['trello table'][event.widget.get("1.0",'end-1c')])
                 # run_discrepancy_lookup()
 
-            def build_list(event):
+            def build_list(event): #TODO: This has to be edited
                 create_list(card_data['id'], event.widget.get("1.0",'end-1c'), BUILD_CHECKLIST_TEMPLATE)
                 # run_discrepancy_lookup()
 
