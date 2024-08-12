@@ -15,7 +15,7 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 
 ## Trello Checklist Reporting
 
-- [x] Finished
+- [x] Finishedq
 
 ## Duplicate Detector
 
@@ -26,3 +26,15 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - [x] Detect differences between MYOB and Trello entries for the same card
 - [x] Add GUI for searching
 - - [x] Add way to deploy checklists from the dashboard itself
+
+
+
+
+### Redesign
+
+- [x]  Card creator to split cards into a master card and attachments
+- [ ] Myob comparer updated to find the split cards
+- - [x] Find all the cards even across boards
+- - [ ] Create cards and add an attachment
+- - [ ] Delete cards and remove the attachment
+- [] Update spreadsheet reporter to use the lists instead
