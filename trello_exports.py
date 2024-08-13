@@ -94,6 +94,36 @@ def create_attachment(card, link):
 
   return json.loads(response.text)
 
+
+
+def delete_card(card):
+  url = "https://api.trello.com/1/cards/" + card
+
+  query = initial_query
+
+  response = requests.request(
+    "DELETE",
+    url,
+    params=query
+  )
+
+  return response.text
+
+
+
+def delete_attachment(card, attachment):
+  url = "https://api.trello.com/1/cards/" + card + "/attachments/" + attachment
+
+  query = initial_query
+  
+  response = requests.request(
+    "DELETE",
+    url,
+    params=query
+  )
+
+  return (response.text)
+
 ##Testing
 if __name__ == "__main__":
     create_list(create_card(TEST_LIST, 'Testing', "Test!", "")["id"], "Test Checklist", BUILD_CHECKLIST_TEMPLATE)

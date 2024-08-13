@@ -114,12 +114,25 @@ if __name__ == "__main__":
             discrepancy, card_data = look_for_discrepancy(entry)
     
             def remove_list(event): #TODO: This has to be edited
-                delete_list(card_data['id'], discrepancy[entry]['trello table'][event.widget.get("1.0",'end-1c')])
-                # run_discrepancy_lookup()
+                # delete_list(card_data['id'], discrepancy[entry]['trello table'][event.widget.get("1.0",'end-1c')])
+
+
+                attachments = gather_attachments(card_data['id'])
+                
+                for attachment in attachments:
+                    if event.widget.get("1.0",'end-1c') in import_card(attachment['url'].split('/c/')[1])['name']:
+                        print(delete_card(attachment['url'].split('/c/')[1]))
+                        (delete_attachment(card_data['id'], attachment['id']))
+                        break
+                        
 
             def build_list(event): #TODO: This has to be edited
-                create_list(card_data['id'], event.widget.get("1.0",'end-1c'), BUILD_CHECKLIST_TEMPLATE)
-                # run_discrepancy_lookup()
+                # create_list(card_data['id'], event.widget.get("1.0",'end-1c'), BUILD_CHECKLIST_TEMPLATE)
+
+                task_card = create_card(FIT_OUT_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, event.widget.get("1.0",'end-1c'), "", FIT_OUT_BUILD_TEMPLATE)
+                create_attachment(card_data['id'],  task_card['shortUrl'])
+                create_attachment(task_card['id'], card_data['shortUrl'])
+       
 
             def callback(event):
                 global editing

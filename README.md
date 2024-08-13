@@ -35,6 +35,6 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - [x]  Card creator to split cards into a master card and attachments
 - [ ] Myob comparer updated to find the split cards
 - - [x] Find all the cards even across boards
-- - [ ] Create cards and add an attachment
-- - [ ] Delete cards and remove the attachment
+- - [x] Create cards and add an attachment
+- - [x] Delete cards and remove the attachment
 - [] Update spreadsheet reporter to use the lists instead

@@ -239,6 +239,33 @@ def gather_attachments(card):
     )
 
     try: 
+
+        return json.loads(response.text)
+    except:
+        return response.text
+
+
+def gather_attachments_as_links(card):
+
+    url = "https://api.trello.com/1/cards/" + card + "/attachments"
+
+    headers = {
+    "Accept": "application/json"
+    }
+
+    query = {
+      'key': API_KEY,
+      'token': AUTH_TOKEN
+    }
+
+    response = requests.request(
+    "GET",
+    url,
+    headers=headers,
+    params=query
+    )
+
+    try: 
         JSON = json.loads(response.text)
         list = []
 
@@ -250,7 +277,7 @@ def gather_attachments(card):
         return response.text
 
 def gather_card_attachments(card):
-    attachments = gather_attachments(card)
+    attachments = gather_attachments_as_links(card)
 
     child_cards = []
 
