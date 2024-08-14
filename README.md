@@ -37,4 +37,5 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - - [x] Find all the cards even across boards
 - - [x] Create cards and add an attachment
 - - [x] Delete cards and remove the attachment
-- [] Update spreadsheet reporter to use the lists instead
+- [] Update trello print out to use the lists instead
+- - [ ] sorter?
