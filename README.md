@@ -38,4 +38,4 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - - [x] Create cards and add an attachment
 - - [x] Delete cards and remove the attachment
 - [] Update trello print out to use the lists instead
-- - [ ] sorter?
+- - [ ] sort to keep constant order?
