@@ -36,7 +36,7 @@ def update_parent_cards():
 
     board = import_cards_with_custom_fields_from_board(TEST_BOARD)
 
-    cards = []
+    # cards = []
     for card in board:
 
         card_name = card['name']
@@ -49,9 +49,9 @@ def update_parent_cards():
         desc = get_desc(card['id'])
 
         if 'Completed: ' in desc:
-            desc = desc.split("\n\n ## `Completed:")[0]
+            desc = desc.split("\n\n", 1)[1]
 
-        update_card(card['id'], desc + "\n\n ## `Completed: " + str(complete/total * 100) + "%`")
+        update_card(card['id'],  "## `Completed: " + str(complete/total * 100) + "%` \n\n " + desc)
 
     search_indicator.destroy()
 
