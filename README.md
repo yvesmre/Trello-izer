@@ -27,9 +27,6 @@ Custom Trello Workspace Tools for automatic generation of Trello cards to a prod
 - [x] Add GUI for searching
 - - [x] Add way to deploy checklists from the dashboard itself
 
-
-
-
 ### Redesign
 
 - [x]  Card creator to split cards into a master card and attachments
