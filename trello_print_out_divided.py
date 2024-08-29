@@ -77,16 +77,6 @@ def create_spreadsheet(board_id, job_no, filename):
         custom_fields = card['customFieldItems'] if 'customFieldItems' in card else None
         for obj in checklists:
 
-            # part_found = []
-            # for checklist_item in obj["checkItems"]:
-            #     if("Part No." in checklist_item['name']):
-            #         to_json['Item'].append(int(index))
-            #         to_json['Checklist'].append(obj['name'])
-            #         to_json['Part No.'].append(checklist_item['name'].replace("Part No.", ''))
-            #         part_found.append(checklist_item['name'].replace("Part No.", ''))
-
-            # if not part_found: 
-
             to_json['Item'].append(int(index))
             to_json['Checklist'].append(obj['name'])
             to_json['Part No.'].append('N/A')
