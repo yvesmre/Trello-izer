@@ -65,7 +65,7 @@ def request_api(access_token):
   print(response.text) 
 
 def request_sales(access_token):
-  url = 'https://arl2.api.myob.com/accountright/4c1bf3cd-e1bf-4356-8bd1-1f0b053dc8f2/Sale/Order/Service' 
+  url = 'https://arl2.api.myob.com/accountright/4c1bf3cd-e1bf-4356-8bd1-1f0b053dc8f2/Sale/Order/Service/?$top=1000' 
   headers = {
     "Accept": "application/json",
     'Authorization': 'Bearer ' + access_token,

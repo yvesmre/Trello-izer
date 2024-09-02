@@ -276,7 +276,7 @@ def make_card(job_no):
 
     print("Run Done, made ", len(updates), " cards")
 
-    create_spreadsheet(board_id=TEST_BOARD if USE_TESTING_LIST else FIT_OUT_BOARD, job_no=job_no, filename= "/output/" + str(job_no) + ".xlsx")
+    # create_spreadsheet(board_id=TEST_BOARD if USE_TESTING_LIST else FIT_OUT_BOARD, job_no=job_no, filename= "/output/" + str(job_no) + ".xlsx")
         
         
 if __name__ == "__main__":
