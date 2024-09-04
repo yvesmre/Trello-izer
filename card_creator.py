@@ -71,6 +71,12 @@ def cards_to_be_made(screen):
         if not myob:
             continue
 
+        # lines = search_myob(order.job_number)["Lines"]
+        # order.set_lines(lines)
+
+        # if not (len(order.lines) > 0):
+        #     continue
+
         display = tkinter.Text(screen)
         display.insert('1.0', str(order.job_number) + "-" + order.client)
         fit_text_to_widget(display)
@@ -238,7 +244,7 @@ def make_card(job_no):
         order.set_lines(lines)
     else: print(str(order.job_number) + " Does not have a MYOB entry! Skipping")
     
-    if(len(order.lines) > 0): # Only do job cards for ones with MYOB entries ### Could be a setting later
+    if(len(order.lines) > 0) or True: # Only do job cards for ones with MYOB entries ### Could be a setting later
 
         fit_out_card = create_card(FIT_OUT_TODO_LIST if not USE_TESTING_LIST else TEST_LIST, str(order.job_number) + " - " + order.client, "", FIT_OUT_BUILD_TEMPLATE)
         fit_out_card_id = fit_out_card["id"]
