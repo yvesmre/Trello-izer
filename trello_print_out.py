@@ -109,9 +109,15 @@ def create_spreadsheet(board_id, job_no, filename):
     model = 'N/A'
     vin = 'N/A'
 
-    dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
-    contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
+    dealer = 'N/A'
+    contact ='N/A'
 
+    try:
+        dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
+    except: None
+    try:
+        contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
+    except: None
     try: 
         if "##" in desc:
             desc = desc.split('##')[1].replace("**",'').strip()
