@@ -9,6 +9,8 @@ from pandas import ExcelWriter
 from openpyxl.cell import MergedCell
 from variables import *
 
+finished = None
+
 def fit_text_to_widget(text_widget):
     # Get the number of lines and the longest line's length
     num_lines = int(text_widget.index('end-1c').split('.')[0])
@@ -32,6 +34,11 @@ def all_children (wid) :
 
 
 def create_spreadsheet(board_id, job_no, filename):
+
+    global finished
+    if finished: 
+        finished.destroy()
+        finished = None
 
     #Hacky way of going about this, tbh
     if not os.path.exists(os.getcwd() + "/" + filename.split('/')[1]) :
@@ -184,6 +191,10 @@ def create_spreadsheet(board_id, job_no, filename):
     subprocess.call(['open', os.getcwd()+ filename]) if platform.system() == "Darwin" else os.startfile(os.getcwd()+ filename)
     search_indicator.destroy()
 
+   
+    finished = tkinter.Label(m, text="Finished! Check the outputs folder.")
+    finished.config(bg="green")
+    finished.grid(row=3,column=1)
 
 if __name__ == "__main__":
     def search_card(widget):
