@@ -70,12 +70,16 @@ def create_spreadsheet(board_id, job_no, filename):
     desc = ""
 
     custom_fields = None
+
+    found_card = False
     for card in board:
         checklists = import_checklist(card['id'])
 
         card_name = card['name']
         desc = card['desc']
         if not (card_name.split('-')[0].replace('#', '').strip() == job_no): continue
+
+        found_card = True
         customer = card_name.split('-', 1)[1].strip()
 
         custom_fields = card['customFieldItems'] if 'customFieldItems' in card else None
@@ -97,6 +101,14 @@ def create_spreadsheet(board_id, job_no, filename):
             
             index = index + 1
         break
+
+    if not found_card:
+        search_indicator.destroy()
+
+        finished = tkinter.Label(m, text="Card Not Found in Any of the Boards!")
+        finished.config(bg="red")
+        finished.grid(row=3,column=1)
+        return
 
     frame = pd.DataFrame(data=to_json)
     frame.index  = frame.index + 1
