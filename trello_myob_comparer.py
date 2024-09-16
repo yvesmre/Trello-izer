@@ -164,7 +164,10 @@ if __name__ == "__main__":
                 label = tkinter.Label(m, text="No Differences Found!")
                 label.grid(row=4, column=1)
                 label.config(bg="red")
-
+            elif not discrepancy and not card_data:
+                label = tkinter.Label(m, text="Card Not Found!")
+                label.grid(row=4, column=1)
+                label.config(bg="red")
 
     
 
