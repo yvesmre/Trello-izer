@@ -51,10 +51,15 @@ def look_for_cards_to_delete(screen):
     else: board = import_cards_with_custom_fields_from_board(TEST_BOARD)
 
     def threadify_delete_card(event):
-        print(event.widget.get("1.0",'end-1c'))
-        # thread = Thread(target=deploy_card, args=(event, ))
-        # thread.start()
+        widget_text = event.widget.get("1.0",'end-1c')
 
+        for i in range(len(board)):
+            card = board[i]
+            if card['name'] == widget_text:
+                checklists = gather_attachments_as_links(card['id'])
+                print(json.dumps(checklists, indent = 4))
+            else: continue
+        
 
     for i in range(len(board)):
         card = board[i]
