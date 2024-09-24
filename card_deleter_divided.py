@@ -56,8 +56,12 @@ def look_for_cards_to_delete(screen):
         for i in range(len(board)):
             card = board[i]
             if card['name'] == widget_text:
-                checklists = gather_attachments_as_links(card['id'])
-                print(json.dumps(checklists, indent = 4))
+                attachments = gather_attachments(card['id'])
+                
+                for attachment in attachments:
+                    print(delete_card(attachment['url'].split('/c/')[1]))
+                    (delete_attachment(card['id'], attachment['id']))
+                    
             else: continue
         
 
