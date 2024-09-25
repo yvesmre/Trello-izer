@@ -44,6 +44,10 @@ def look_for_cards_to_delete(screen):
     
     board = []
 
+    for child in all_children(screen):
+        if(type(child) == tkinter.Text):
+            child.destroy()
+
     if not USE_TESTING_LIST:
         for s in BOARDS_TO_SEARCH:
             board.extend(import_cards_with_custom_fields_from_board(s))
@@ -59,16 +63,19 @@ def look_for_cards_to_delete(screen):
                 attachments = gather_attachments(card['id'])
                 
                 for attachment in attachments:
-                    print(delete_card(attachment['url'].split('/c/')[1]))
-                    (delete_attachment(card['id'], attachment['id']))
-                    
+                    (delete_card(attachment['url'].split('/c/')[1]))
+                    # (delete_attachment(card['id'], attachment['id'])) # No Need to delete attachments, card is gonna go anyway
+
+                delete_card(card['id'])
+
+                look_for_cards_to_delete(screen)
             else: continue
         
 
     for i in range(len(board)):
         card = board[i]
         name = card['name']
-        if '-' in name and "DRAFTING" not in name:
+        if '-' in name and "DRAFTING" not in name and name.split('-')[0].strip().isnumeric():
             display = tkinter.Text(screen)
             display.insert('1.0', name)
             fit_text_to_widget(display)
