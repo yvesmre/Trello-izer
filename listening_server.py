@@ -3,7 +3,6 @@ from urllib.parse import urlparse, parse_qs
 import import_myob_data
 import sys
 import json
-import pandas as pd
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):

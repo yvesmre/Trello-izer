@@ -6,7 +6,6 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font
 import shutil
 from pandas import ExcelWriter
-from openpyxl.cell import MergedCell
 from variables import *
 
 def fit_text_to_widget(text_widget):

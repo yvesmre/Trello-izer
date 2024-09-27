@@ -1,6 +1,5 @@
 import openpyxl
 import pandas as pd
-import math
 import datetime
 
 keywords = ["Job No.", "Customer", "Client", "Quote Status", "Purchase Order Date", "Trello Card Created", "Invoice Date"]

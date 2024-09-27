@@ -1,6 +1,5 @@
 import requests
 import json
-import pandas as pd
 from variables import *
 import tkinter
 from threading import *

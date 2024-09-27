@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from import_myob_data import *
 from trello_imports import *
 from trello_exports import *

@@ -1,7 +1,5 @@
 from trello_imports import *
 from trello_exports import *
-import requests
-import json
 import tkinter
 from functools import partial
 

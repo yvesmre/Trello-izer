@@ -1,6 +1,5 @@
 import requests
 import json
-import urllib.parse
 import webbrowser
 from variables import *
 import listening_server
