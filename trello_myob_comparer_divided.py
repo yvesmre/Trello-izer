@@ -13,8 +13,8 @@ def look_for_discrepancy(job):
     if not USE_TESTING_LIST:
         for s in BOARDS_TO_SEARCH:
             board.extend(import_cards_with_custom_fields_from_board(s))
-    
-    board = import_cards_with_custom_fields_from_board(TEST_BOARD)
+    else:
+        board.extend(import_cards_with_custom_fields_from_board(TEST_BOARD))
             
 
     json_out = None

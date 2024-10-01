@@ -48,7 +48,9 @@ def create_spreadsheet(board_id, job_no, filename):
         for s in BOARDS_TO_SEARCH:
             board.extend(import_cards_with_custom_fields_from_board(s))
         
-    else: board = import_cards_with_custom_fields_from_board(TEST_BOARD)
+    else: 
+        for s in TEST_BOARD:
+            board.extend(import_cards_with_custom_fields_from_board(s))
     
     to_json = {
         "Item": [], 
@@ -97,13 +99,18 @@ def create_spreadsheet(board_id, job_no, filename):
     wb = load_workbook(os.getcwd()+ filename)
     ws = wb.active
 
+    dealer = 'N/A'
+    contact = 'N/A'
     manufacturer = 'N/A'
     model = 'N/A'
     vin = 'N/A'
 
-    dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
-    contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
-
+    try:
+        dealer = desc.split('Dealer:')[1].strip().split('Contact:')[0].strip()
+    except: None
+    try:
+        contact = desc.split('Contact:')[1].strip().split('#')[0].split('\n')[0].strip()
+    except: None
     try: 
         if "##" in desc:
             desc = desc.split('##')[1].replace("**",'').strip()

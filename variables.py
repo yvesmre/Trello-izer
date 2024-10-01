@@ -55,4 +55,4 @@ FIT_OUT_BUILD_TEMPLATE = config['BOARD and LIST IDS'].get(option='fit out job ca
 BUILD_CHECKLIST_TEMPLATE = config['BOARD and LIST IDS'].get(option='fit out job checklist template', fallback="")
 
 TEST_LIST = config.get(section='TEST BOARD and LIST IDS',option='test list', fallback="")
-TEST_BOARD = config.get(section='TEST BOARD and LIST IDS', option='test board', fallback="")
+TEST_BOARD = config.get(section='TEST BOARD and LIST IDS', option='test board', fallback="").replace(' ', '').split(',')
