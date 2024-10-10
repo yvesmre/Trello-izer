@@ -3,7 +3,7 @@ from trello_imports import *
 from trello_exports import *
 import tkinter
 
-def look_for_discrepancy(master_job, child_job):
+def copy_paste(master_job, child_job):
 
     import_myob()
 
@@ -37,11 +37,14 @@ def look_for_discrepancy(master_job, child_job):
     
         if(master_card and child_card): break
 
+
+    master_checklist = sorted(import_checklist(master_card['id']), key=lambda k: k.get('pos', 0))
+
     for checklist in import_checklist(child_card['id']):
         delete_list(child_card['id'], checklist['id'])    
 
 
-    for checklist in import_checklist(master_card['id']):
+    for checklist in master_checklist:
         create_list(child_card['id'], checklist['name'], checklist['id'])
 
     return json_out, card_data
@@ -62,7 +65,7 @@ if __name__ == "__main__":
     
 
     def force_list():
-        look_for_discrepancy(e1.get(), e2.get())
+        copy_paste(e1.get(), e2.get())
         return
 
     def run():
