@@ -61,6 +61,42 @@ def delete_list(id, checklist_id):
   return json.loads(response.text)
 
 
+def delete_list_item(checklist_id, checkitem_id):
+
+  url = "https://api.trello.com/1/checklists/" + checklist_id + "/checkItems/" + checkitem_id
+
+  query = {
+    'key': API_KEY,
+    'token': AUTH_TOKEN
+  }
+
+  response = requests.request(
+    "DELETE",
+    url,
+    params=query
+  )
+
+  return json.loads(response.text)
+
+
+def create_list_item(checklist_id, name, checked, pos):
+  url = "https://api.trello.com/1/checklists/" + checklist_id + "/checkItems"
+
+  query = {
+    'name':  name,
+    'checked': 'true' if checked else 'false',
+    'pos': pos,
+    'key': API_KEY,
+    'token': AUTH_TOKEN
+  }
+
+  response = requests.request(
+    "POST",
+    url,
+    params=query
+  )
+
+  return json.loads(response.text)
 
 
 def update_card(card, desc):

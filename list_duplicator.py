@@ -37,15 +37,16 @@ def copy_paste(master_job, child_job):
     
         if(master_card and child_card): break
 
-
     master_checklist = sorted(import_checklist(master_card['id']), key=lambda k: k.get('pos', 0))
 
     for checklist in import_checklist(child_card['id']):
         delete_list(child_card['id'], checklist['id'])    
 
-
     for checklist in master_checklist:
-        create_list(child_card['id'], checklist['name'], checklist['id'])
+        new_list = (create_list(child_card['id'], checklist['name'], None))
+
+        for checkitem in checklist['checkItems']:
+            create_list_item(new_list['id'], checkitem['name'], True if not checkitem['state'] == "incomplete" else False, checkitem['pos'])
 
     return json_out, card_data
 
