@@ -29,7 +29,7 @@ def import_cards_with_custom_fields_from_board(board):
   try:
     return json.loads(response.text)
   except:
-    print(response.text)
+    print(response.status_code, response.text)
     return None
 
 def import_checklist(card):  
