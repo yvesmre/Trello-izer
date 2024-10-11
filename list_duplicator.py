@@ -73,24 +73,24 @@ if __name__ == "__main__":
         thread = Thread(target=force_list)
         thread.start()
 
-    m = tkinter.Tk(className=" MYOB Trello Comparator")
+    m = tkinter.Tk(className="List Duplicator")
     
     m.minsize(512, 512)
     m.columnconfigure(1, weight=1)
     m.columnconfigure(3, weight=1)
 
-    m.rowconfigure(index=list(range(3, 50)), weight=1)
+    m.rowconfigure(index=list(range(0, 3)), weight=1)
 
-    tkinter.Label(m, text='Job No.').grid(row=0)
+    tkinter.Label(m, text='Job No.').grid(row=0, column=1)
 
     e1 = tkinter.Entry(m)
-    e1.grid(row=0, column=1)
+    e1.grid(row=1, column=0)
 
     e2 = tkinter.Entry(m)
-    e2.grid(row=0, column=2)
+    e2.grid(row=1, column=2)
 
-    start_button = tkinter.Button(m, text="Look for Discrepancies", command=run)
-    start_button.grid(row=1, column=1)
+    start_button = tkinter.Button(m, text="Copy Checklists", command=run)
+    start_button.grid(row=2, column=1)
 
 
     m.mainloop()
