@@ -73,7 +73,7 @@ if __name__ == "__main__":
         thread = Thread(target=force_list)
         thread.start()
 
-    m = tkinter.Tk(className="List Duplicator")
+    m = tkinter.Tk(className=" List Duplicator")
     
     m.minsize(512, 512)
     m.columnconfigure(1, weight=1)
