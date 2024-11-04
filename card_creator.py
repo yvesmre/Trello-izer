@@ -6,6 +6,7 @@ from datetime import date
 from import_myob_data import *
 import shutil
 import tkinter
+from tkinter import *
 from openpyxl.styles import Font
 import tkinter
 from functools import partial
@@ -295,17 +296,38 @@ if __name__ == "__main__":
 
 
     
-    m = tkinter.Tk()
-    m.config(bg="black")
+    main_window = tkinter.Tk()
+    main_window.config(bg="black")
     
-    m.minsize(384, 384)
-    m.columnconfigure(1, weight=1)
-    m.rowconfigure(1, weight=1)
+    # main_window.minsize(384, 384)
+    # main_window.columnconfigure(1, weight=1)
+    # main_window.rowconfigure(1, weight=1)
 
-    m.rowconfigure(list(range(2,50)), weight=1)
+    main_frame = Frame(main_window)
+    main_frame.pack(fill=BOTH, expand=1)
+
+    main_canvas = Canvas(main_frame)
+    main_canvas.pack(side=LEFT, fill=BOTH, expand=1)
+
+
+    my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command=main_canvas.yview)
+    my_scrollbar.pack(side=RIGHT, fill=Y)
+
+    # configure the canvas
+    main_canvas.configure(yscrollcommand=my_scrollbar.set)
+    main_canvas.bind(
+        '<Configure>', lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
+    )
+
+    m = Frame(main_canvas, width=384, height=384)
+
+    # m.rowconfigure(list(range(2,50)), weight=1)
 
     start_button = tkinter.Button(m, text="Look for Cards to be Made", command=look_for_cards, width=24, height=4)
     start_button.grid(row=1, column=1)
 
-    m.mainloop()
+    # start_button.place(x=30 , y=0)
+
+    main_canvas.create_window((0, 0), window=m, anchor="nw")
+    main_window.mainloop()
 
