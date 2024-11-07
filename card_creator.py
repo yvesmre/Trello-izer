@@ -323,6 +323,9 @@ if __name__ == "__main__":
 
     # m.rowconfigure(list(range(2,50)), weight=1)
 
+    m.bind("<Configure>", lambda e: main_canvas.configure(scrollregion=main_canvas.bbox(ALL)))
+        
+
     start_button = tkinter.Button(m, text="Look for Cards to be Made", command=look_for_cards, width=24, height=4)
     start_button.grid(row=1, column=1)
 
