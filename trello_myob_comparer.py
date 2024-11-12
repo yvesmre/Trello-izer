@@ -2,6 +2,7 @@ from import_myob_data import *
 from trello_imports import *
 from trello_exports import *
 import tkinter
+from tkinter import *
 
 def look_for_discrepancy(job):
 
@@ -179,11 +180,38 @@ if __name__ == "__main__":
         editing = not editing
         edit_toggle.config(bg='green' if editing else 'red')
 
-    m = tkinter.Tk(className=" MYOB Trello Comparator")
+    # m = tkinter.Tk(className=" MYOB Trello Comparator")
     
-    m.minsize(512, 512)
-    m.columnconfigure(1, weight=1)
-    m.columnconfigure(3, weight=1)
+
+    main_window = tkinter.Tk()
+    main_window.config(bg="black")
+    
+    # main_window.minsize(384, 384)
+    # main_window.columnconfigure(1, weight=1)
+    # main_window.rowconfigure(1, weight=1)
+
+    main_frame = Frame(main_window)
+    main_frame.pack(fill=BOTH, expand=1)
+
+    main_canvas = Canvas(main_frame)
+    main_canvas.pack(side=LEFT, fill=BOTH, expand=1)
+
+    # m.minsize(512, 512)
+    # m.columnconfigure(1, weight=1)
+    # m.columnconfigure(3, weight=1)
+
+    my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command=main_canvas.yview)
+    my_scrollbar.pack(side=RIGHT, fill=Y)
+
+    main_canvas.configure(yscrollcommand=my_scrollbar.set)
+    main_canvas.bind(
+        '<Configure>', lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
+    )
+
+    m = Frame(main_canvas, width=600, height=600)
+
+
+    m.bind("<Configure>", lambda e: main_canvas.configure(scrollregion=main_canvas.bbox(ALL)))
 
     m.rowconfigure(index=list(range(3, 50)), weight=1)
 
@@ -201,4 +229,5 @@ if __name__ == "__main__":
     edit_toggle.config(bg='green' if editing else 'red')
     edit_toggle.bind('<Button-1>', toggle_edit)
 
-    m.mainloop()
+    main_canvas.create_window((0, 0), window=m, anchor="nw")
+    main_window.mainloop()
